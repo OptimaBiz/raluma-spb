@@ -9,6 +9,14 @@ body {
   overflow-x: clip;
 }
 
+/* Keep expensive sections off the paint/layout hot path while out of viewport. */
+@supports (content-visibility: auto) {
+  .t-rec:not([data-record-type='868']) {
+    content-visibility: auto;
+    contain-intrinsic-size: 780px;
+  }
+}
+
 html.animations-enabled body .js-reveal,
 html.animations-enabled body .js-hero-seq {
   opacity: 0;
@@ -17,13 +25,15 @@ html.animations-enabled body .js-hero-seq {
     opacity 0.62s var(--raluma-motion-ease),
     transform 0.62s var(--raluma-motion-ease);
   transition-delay: var(--reveal-delay, 0ms);
-  will-change: opacity, transform;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
 }
 
 html.animations-enabled body .js-reveal.is-visible,
 html.animations-enabled body .js-hero-seq.is-visible {
   opacity: 1;
-  transform: none;
+  transform: translate3d(0, 0, 0);
+  will-change: auto;
 }
 
 html.animations-enabled body .js-reveal.reveal-left { transform: translate3d(-18px, 0, 0); }
@@ -32,29 +42,43 @@ html.animations-enabled body .js-reveal.reveal-scale { transform: translate3d(0,
 
 html.animations-ready body .js-hero-seq { transition-duration: 0.72s; }
 
+/* Normalize transition lists to avoid accidental "transition: all" from exported markup. */
 .t-btn,
 .t-submit,
 .t-btnflex,
 .t-card__col,
 .t603__tile,
 .t772__content,
-.t491__content {
-  transition: transform 0.22s var(--raluma-motion-ease), box-shadow 0.22s var(--raluma-motion-ease);
+.t491__content,
+.t890__arrow {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  transition-property: transform, opacity, background-color, color, border-color !important;
+  transition-duration: 0.22s !important;
+  transition-timing-function: var(--raluma-motion-ease) !important;
 }
 
 @media (hover: hover) {
   .t-btn:hover,
   .t-submit:hover,
   .t-btnflex:hover {
-    transform: translateY(-2px);
+    transform: translate3d(0, -2px, 0);
   }
 
   .t-card__col:hover,
   .t603__tile:hover,
   .t772__content:hover,
-  .t491__content:hover {
-    transform: translateY(-3px);
+  .t491__content:hover,
+  .t890__arrow:hover {
+    transform: translate3d(0, -3px, 0);
   }
+}
+
+/* Disable perpetual decorative effects which cost CPU/GPU time during idle/scroll. */
+.t-btn_wrap-effects,
+.t-btn_effects,
+.t-btn_effects::after {
+  animation: none !important;
 }
 
 .t-btn:focus-visible,
@@ -93,5 +117,6 @@ html.animations-ready body .js-hero-seq { transition-duration: 0.72s; }
   html.animations-enabled body .js-hero-seq {
     opacity: 1;
     transform: none;
+    will-change: auto;
   }
 }
