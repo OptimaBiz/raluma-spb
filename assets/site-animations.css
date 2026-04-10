@@ -1,0 +1,64 @@
+/* Raluma animation layer (post-merge fix) */
+html.animations-enabled body .js-reveal,
+html.animations-enabled body .js-hero-seq {
+  opacity: 0 !important;
+  transform: translate3d(0, 18px, 0) !important;
+  transition: opacity 0.65s ease, transform 0.65s ease;
+  will-change: opacity, transform;
+}
+
+html.animations-enabled body .js-reveal.is-visible,
+html.animations-enabled body .js-hero-seq.is-visible {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+html.animations-enabled body .js-reveal.reveal-left {
+  transform: translate3d(-18px, 0, 0) !important;
+}
+
+html.animations-enabled body .js-reveal.reveal-right {
+  transform: translate3d(18px, 0, 0) !important;
+}
+
+html.animations-enabled body .js-reveal.reveal-scale {
+  transform: translate3d(0, 14px, 0) scale(0.98) !important;
+}
+
+html.animations-enabled body .js-reveal,
+html.animations-enabled body .js-hero-seq {
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+html.animations-ready body .js-hero-seq {
+  transition-duration: 0.75s;
+}
+
+/* restrained hover/focus micro-interactions */
+.t-btnflex,
+.t-submit,
+.t-btn {
+  transition: transform 0.24s ease, box-shadow 0.24s ease;
+}
+
+@media (hover: hover) {
+  .t-btnflex:hover,
+  .t-submit:hover,
+  .t-btn:hover {
+    transform: translateY(-2px);
+  }
+
+  .t-card__col:hover,
+  .t603__tile:hover {
+    transform: translateY(-4px);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+}
+
+.t-input:focus,
+.t-input:focus-visible,
+.t-input-phonemask:focus,
+.t-input-phonemask:focus-visible {
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+  box-shadow: 0 0 0 3px rgba(254, 0, 0, 0.12);
+}
