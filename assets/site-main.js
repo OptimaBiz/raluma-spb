@@ -22,7 +22,9 @@
 
     box.textContent = text;
     box.style.display = 'block';
-    box.style.color = isError ? '#b00020' : '#0f7a2a';
+    box.style.color = isError ? '#b00020' : '#0a7a1c';
+    box.style.textAlign = 'center';
+    box.style.fontFamily = 'Montserrat, Arial, sans-serif';
   }
 
   function setButtonBusy(button, isBusy, busyText) {
@@ -93,7 +95,8 @@
         validation.hiddenPhoneInput.value = validation.phone;
       }
 
-      setButtonBusy(button, true, 'Отправка…');
+      setButtonBusy(button, true, 'Идет расчет...');
+      if (button) button.style.opacity = '0.7';
 
       var params = new URLSearchParams(window.location.search);
       var data = new FormData(form);
@@ -118,13 +121,32 @@
 
         if (!response.ok) throw new Error('request_failed');
 
-        setStatus(successBox, 'Заявка отправлена. Мы свяжемся с вами.', false);
+        var inputsBox = form.querySelector('.t-form__inputsbox');
+        var hint = form.closest('.t722__mainwrapper') && form.closest('.t722__mainwrapper').querySelector('.t722__hint');
+
+        if (inputsBox) {
+          inputsBox.style.transition = 'opacity 0.25s ease';
+          inputsBox.style.opacity = '0';
+          window.setTimeout(function () {
+            inputsBox.style.display = 'none';
+          }, 250);
+        }
+
+        if (hint) hint.style.display = 'none';
+
+        setStatus(successBox, 'Спасибо! Заявка успешно отправлена. Мы свяжемся с вами в течение 15 минут для уточнения деталей', false);
+        successBox.style.fontSize = '20px';
+        successBox.style.fontWeight = '600';
+
         form.reset();
         if (validation.hiddenPhoneInput) validation.hiddenPhoneInput.value = '';
+
+        form.scrollIntoView({ behavior: 'smooth', block: 'center' });
       } catch (error) {
         setStatus(successBox, 'Не удалось отправить заявку. Проверьте интернет и попробуйте ещё раз.', true);
       } finally {
         setButtonBusy(button, false);
+        if (button) button.style.opacity = '';
       }
     });
   }
