@@ -1,64 +1,97 @@
-/* Raluma animation layer (post-merge fix) */
+/* Raluma landing hardening layer */
+:root {
+  --raluma-focus-ring: 0 0 0 3px rgba(254, 0, 0, 0.18);
+  --raluma-motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html,
+body {
+  overflow-x: clip;
+}
+
 html.animations-enabled body .js-reveal,
 html.animations-enabled body .js-hero-seq {
-  opacity: 0 !important;
-  transform: translate3d(0, 18px, 0) !important;
-  transition: opacity 0.65s ease, transform 0.65s ease;
+  opacity: 0;
+  transform: translate3d(0, 18px, 0);
+  transition:
+    opacity 0.62s var(--raluma-motion-ease),
+    transform 0.62s var(--raluma-motion-ease);
+  transition-delay: var(--reveal-delay, 0ms);
   will-change: opacity, transform;
 }
 
 html.animations-enabled body .js-reveal.is-visible,
 html.animations-enabled body .js-hero-seq.is-visible {
-  opacity: 1 !important;
-  transform: none !important;
+  opacity: 1;
+  transform: none;
 }
 
-html.animations-enabled body .js-reveal.reveal-left {
-  transform: translate3d(-18px, 0, 0) !important;
-}
+html.animations-enabled body .js-reveal.reveal-left { transform: translate3d(-18px, 0, 0); }
+html.animations-enabled body .js-reveal.reveal-right { transform: translate3d(18px, 0, 0); }
+html.animations-enabled body .js-reveal.reveal-scale { transform: translate3d(0, 12px, 0) scale(0.985); }
 
-html.animations-enabled body .js-reveal.reveal-right {
-  transform: translate3d(18px, 0, 0) !important;
-}
+html.animations-ready body .js-hero-seq { transition-duration: 0.72s; }
 
-html.animations-enabled body .js-reveal.reveal-scale {
-  transform: translate3d(0, 14px, 0) scale(0.98) !important;
-}
-
-html.animations-enabled body .js-reveal,
-html.animations-enabled body .js-hero-seq {
-  transition-delay: var(--reveal-delay, 0ms);
-}
-
-html.animations-ready body .js-hero-seq {
-  transition-duration: 0.75s;
-}
-
-/* restrained hover/focus micro-interactions */
-.t-btnflex,
+.t-btn,
 .t-submit,
-.t-btn {
-  transition: transform 0.24s ease, box-shadow 0.24s ease;
+.t-btnflex,
+.t-card__col,
+.t603__tile,
+.t772__content,
+.t491__content {
+  transition: transform 0.22s var(--raluma-motion-ease), box-shadow 0.22s var(--raluma-motion-ease);
 }
 
 @media (hover: hover) {
-  .t-btnflex:hover,
+  .t-btn:hover,
   .t-submit:hover,
-  .t-btn:hover {
+  .t-btnflex:hover {
     transform: translateY(-2px);
   }
 
   .t-card__col:hover,
-  .t603__tile:hover {
-    transform: translateY(-4px);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  .t603__tile:hover,
+  .t772__content:hover,
+  .t491__content:hover {
+    transform: translateY(-3px);
   }
 }
 
-.t-input:focus,
+.t-btn:focus-visible,
+.t-submit:focus-visible,
+.t-btnflex:focus-visible,
 .t-input:focus-visible,
-.t-input-phonemask:focus,
 .t-input-phonemask:focus-visible {
-  transition: box-shadow 0.2s ease, border-color 0.2s ease;
-  box-shadow: 0 0 0 3px rgba(254, 0, 0, 0.12);
+  box-shadow: var(--raluma-focus-ring);
+  outline: 0;
+}
+
+#rec2145452701 .t886__wrapper {
+  max-width: calc(100vw - 32px);
+}
+
+@media screen and (max-width: 980px) {
+  #rec2145452701 .t886 {
+    right: 12px !important;
+    left: 12px;
+  }
+
+  #rec2145452701 .t886__wrapper {
+    width: auto !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  html.animations-enabled body .js-reveal,
+  html.animations-enabled body .js-hero-seq {
+    opacity: 1;
+    transform: none;
+  }
 }
