@@ -151,17 +151,67 @@
     });
   }
 
+  function initScrollUp() {
+    var rec = document.getElementById('rec2145215921');
+    if (!rec) return;
+
+    var wrapper = rec.querySelector('.t890');
+    var arrow = rec.querySelector('.t890__arrow');
+    if (!wrapper || !arrow) return;
+
+    rec.dataset.animationappear = 'off';
+    wrapper.classList.add('t890--js-ready');
+
+    var mobileMql = window.matchMedia('(max-width: 980px)');
+
+    function getOffset() {
+      return mobileMql.matches ? Math.max(260, window.innerHeight * 0.7) : Math.max(420, window.innerHeight * 0.85);
+    }
+
+    var ticking = false;
+    function syncVisibility() {
+      var y = window.pageYOffset || document.documentElement.scrollTop || 0;
+      var shouldShow = y > getOffset();
+      wrapper.classList.toggle('is-visible', shouldShow);
+      arrow.setAttribute('aria-hidden', shouldShow ? 'false' : 'true');
+    }
+
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function () {
+        syncVisibility();
+        ticking = false;
+      });
+    }
+
+    function scrollToTop() {
+      try {
+        window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+      } catch (e) {
+        window.scrollTo(0, 0);
+      }
+    }
+
+    arrow.addEventListener('click', function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+      scrollToTop();
+    });
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    window.addEventListener('orientationchange', onScroll);
+
+    syncVisibility();
+  }
+
   onReady(function () {
     document.querySelectorAll('form.lead-form').forEach(attachLeadFormHandler);
 
-    // remove occasional broken inline width from Tilda cookie widget
     var cookieWrapper = document.querySelector('#rec2145452701 .t886__wrapper');
     if (cookieWrapper) cookieWrapper.style.maxWidth = 'calc(100vw - 32px)';
 
-    // normalize accidental whitespace in utility class from exported markup
-    var toTopButton = document.querySelector('#rec2145215921 .t890__arrow');
-    if (toTopButton && /\s/.test(toTopButton.className)) {
-      toTopButton.className = toTopButton.className.trim().replace(/\s+/g, ' ');
-    }
+    initScrollUp();
   });
 })();
