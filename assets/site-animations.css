@@ -49,8 +49,7 @@ html.animations-ready body .js-hero-seq { transition-duration: 0.72s; }
 .t-card__col,
 .t603__tile,
 .t772__content,
-.t491__content,
-.t890__arrow {
+.t491__content {
   transform: translateZ(0);
   backface-visibility: hidden;
   transition-property: transform, opacity, background-color, color, border-color !important;
@@ -74,12 +73,6 @@ html.animations-ready body .js-hero-seq { transition-duration: 0.72s; }
   }
 }
 
-/* Disable perpetual decorative effects which cost CPU/GPU time during idle/scroll. */
-.t-btn_wrap-effects,
-.t-btn_effects,
-.t-btn_effects::after {
-  animation: none !important;
-}
 
 .t-btn:focus-visible,
 .t-submit:focus-visible,

@@ -158,10 +158,5 @@
     var cookieWrapper = document.querySelector('#rec2145452701 .t886__wrapper');
     if (cookieWrapper) cookieWrapper.style.maxWidth = 'calc(100vw - 32px)';
 
-    // normalize accidental whitespace in utility class from exported markup
-    var toTopButton = document.querySelector('#rec2145215921 .t890__arrow');
-    if (toTopButton && /\s/.test(toTopButton.className)) {
-      toTopButton.className = toTopButton.className.trim().replace(/\s+/g, ' ');
-    }
   });
 })();
