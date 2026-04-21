@@ -100,9 +100,6 @@
           throw new Error('request_failed');
         }
 
-        if (typeof window.ym === 'function') {
-          window.ym(108496902, 'reachGoal', 'lead_form');
-        }
 
         window.setTimeout(function () {
           window.location.href = '/thanks.html';
