@@ -146,20 +146,32 @@
       'section#lead-form{scroll-margin-top:var(--raluma-anchor-offset-desktop);}',
       '#cases-prices{scroll-margin-top:var(--raluma-anchor-offset-desktop);}',
       '@media screen and (min-width:981px){body{padding-top:0;}#rec2145215921 .t890{bottom:20px;} }',
-      '@media screen and (max-width:980px){.raluma-callbar{display:none!important;}.raluma-mobile-actions{display:flex;transition:opacity .24s ease,visibility .24s ease,transform .24s ease;}body{padding-bottom:calc(var(--raluma-mobile-bar-height) + env(safe-area-inset-bottom) + 22px);}#rec2145215921 .t890{z-index:993;bottom:calc(var(--raluma-mobile-bar-height) + env(safe-area-inset-bottom) + var(--raluma-mobile-safe-gap));}#rec2145452701 .t886{left:12px;right:12px!important;bottom:calc(var(--raluma-mobile-bar-height) + env(safe-area-inset-bottom) + var(--raluma-mobile-safe-gap) + var(--raluma-mobile-scrollup-size) + var(--raluma-mobile-scrollup-gap));z-index:992;}#rec2145452701 .t886__wrapper{width:100%!important;max-width:100%!important;box-sizing:border-box;}#rec2145452701 .t886.raluma-cookie-pending{opacity:0;visibility:hidden;pointer-events:none;}section#lead-form{scroll-margin-top:var(--raluma-anchor-offset-mobile);}#cases-prices{scroll-margin-top:var(--raluma-anchor-offset-mobile);} }',
+      '@media screen and (max-width:980px){.raluma-callbar{display:none!important;}.raluma-mobile-actions{display:flex;transition:opacity .24s ease,visibility .24s ease,transform .24s ease;}body{padding-bottom:calc(var(--raluma-mobile-bar-height) + env(safe-area-inset-bottom) + 22px);}#rec2145215921 .t890{z-index:993;bottom:calc(var(--bottom-bar-height,74px) + env(safe-area-inset-bottom) + 16px);}.raluma-cookie-widget{bottom:calc(var(--bottom-bar-height,74px) + env(safe-area-inset-bottom) + 84px);}section#lead-form{scroll-margin-top:var(--raluma-anchor-offset-mobile);}#cases-prices{scroll-margin-top:var(--raluma-anchor-offset-mobile);} }',
       '@media screen and (max-width:1200px){.raluma-callbar{top:14px;right:14px;min-width:290px;}}',
       '@media screen and (max-width:640px){#rec2143512671 .t182__buttons{margin-top:28px;}}',
       '#rec2143512671 .t182__descr-line{display:block;}',
       '#rec2143512671 .t182__descr-line--second{margin-top:2px;}',
       '#rec2143512671 .t-btnflex.t-btnflex_type_button2{color:#0f1726;background:linear-gradient(180deg,#ffffff 0%,#f5f7fb 100%);border:1px solid rgba(14,25,43,0.12)!important;box-shadow:0 12px 28px rgba(10,18,34,0.22),inset 0 1px 0 rgba(255,255,255,0.88)!important;transition:background-color .2s ease,color .2s ease,border-color .2s ease,box-shadow .22s ease,transform .22s ease;}',
       '#rec2143512671 .t-btnflex.t-btnflex_type_button2:active{transform:translateY(1px) scale(.995);box-shadow:0 8px 16px rgba(10,18,34,0.2),inset 0 1px 0 rgba(255,255,255,0.85)!important;}',
+      '.raluma-cookie-widget{position:fixed;left:20px;bottom:24px;z-index:992;display:flex;flex-direction:column;align-items:flex-start;gap:10px;opacity:0;transform:translateY(8px);pointer-events:none;transition:opacity .2s ease,transform .2s ease;}',
+      '.raluma-cookie-widget.is-visible{opacity:1;transform:translateY(0);pointer-events:auto;}',
+      '.raluma-cookie-widget__trigger{width:48px;height:48px;border:none;border-radius:999px;background:#fff;box-shadow:0 8px 24px rgba(11,24,43,0.18);font-size:24px;cursor:pointer;}',
+      '.raluma-cookie-widget__popover{display:none;max-width:240px;padding:12px;border-radius:14px;background:#fff;border:1px solid rgba(11,24,43,0.12);box-shadow:0 10px 26px rgba(11,24,43,0.16);}',
+      '.raluma-cookie-widget.is-open .raluma-cookie-widget__popover{display:block;}',
+      '.raluma-cookie-widget__text{margin:0 0 10px;font-size:13px;line-height:1.4;color:#1d2736;}',
+      '.raluma-cookie-widget__actions{display:flex;gap:8px;align-items:center;}',
+      '.raluma-cookie-widget__accept{border:none;border-radius:999px;background:#111;color:#fff;font-size:12px;font-weight:600;padding:8px 12px;cursor:pointer;}',
+      '.raluma-cookie-widget__more{font-size:12px;font-weight:600;color:#111;text-decoration:underline;}',
       '@media (hover:hover){#rec2143512671 .t-btnflex.t-btnflex_type_button2:not(.t-animate_no-hover):hover,#rec2143512671 .t-btnflex.t-btnflex_type_button2:not(.t-animate_no-hover):focus-visible{color:#141f31!important;border-color:rgba(14,25,43,0.24)!important;background:linear-gradient(180deg,#ffffff 0%,#eef2f8 100%)!important;box-shadow:0 16px 34px rgba(10,18,34,0.26),inset 0 1px 0 rgba(255,255,255,0.95)!important;}}',
       '#rec2145460381 .t463__maincontainer{padding-top:22px;padding-bottom:18px;}',
       '#rec2145460381 .t463__content{display:flex;flex-direction:column;gap:14px;}',
-      '#rec2145460381 .raluma-footer__cityline{color:#fff;font-size:15px;line-height:1.4;font-weight:500;text-align:left;max-width:620px;}',
-      '#rec2145460381 .raluma-footer__cityline-break{display:block;}',
+      '#rec2145460381 .t463__colwrapper{display:grid;grid-template-columns:minmax(120px,auto) minmax(260px,1fr) minmax(220px,auto);align-items:center;gap:16px;}',
+      '#rec2145460381 .t463__col,#rec2145460381 .t463__col_center,#rec2145460381 .t463__col.t-align_right{text-align:center!important;}',
+      '#rec2145460381 .raluma-footer__cityline{color:#fff;font-size:15px;line-height:1.45;font-weight:500;text-align:center;max-width:640px;margin:0 auto;overflow-wrap:anywhere;}',
+      '#rec2145460381 .raluma-footer__cityline-break{display:inline;}',
       '#rec2145460381 .raluma-footer__copyright-row{display:flex;justify-content:center;}',
       '#rec2145460381 .raluma-footer__copyright-row .t463__copyright{margin:0;text-align:center;}',
+      '#rec2145460381 .t-sociallinks__wrapper{justify-content:center;}',
       '@media screen and (max-width:980px){#rec2145460381 .t463__maincontainer{padding-top:18px;padding-bottom:16px;}#rec2145460381 .t463__colwrapper{display:flex;flex-direction:column;align-items:center;gap:10px;}#rec2145460381 .t463__col{width:100%;text-align:center!important;}#rec2145460381 .raluma-footer__cityline{order:1;text-align:center;font-size:14px;line-height:1.45;max-width:360px;}#rec2145460381 .t463__col:first-child{order:2;}#rec2145460381 .t463__logo{max-width:76px!important;height:auto;}#rec2145460381 .raluma-footer__copyright-row{order:3;}#rec2145460381 .t463__col:last-child{order:4;}#rec2145460381 .t-sociallinks__wrapper{justify-content:center;}}',
       '@media screen and (max-width:767px){#rec2143512671 .t182__content-wrapper{max-width:330px;}#rec2143512671 .t182__title{margin-bottom:12px;}#rec2143512671 .t182__descr{font-size:15px;line-height:1.42;max-width:320px;white-space:normal;text-wrap:balance;margin-left:auto;margin-right:auto;}#rec2143512671 .t182__descr br{display:none;}#rec2143512671 .t182__brand{display:none;}#rec2143512671 .t182__buttons{margin-top:16px;justify-content:center;}#rec2143512671 .t-btnflex_type_button{display:none!important;}#rec2143512671 .t182__wrapper{padding-bottom:calc(var(--bottom-bar-height) + env(safe-area-inset-bottom) + 28px);} }'
     ].join('');
@@ -320,7 +332,7 @@
     if (!cityline) {
       cityline = document.createElement('div');
       cityline.className = 'raluma-footer__cityline';
-      cityline.innerHTML = 'Raluma безрамное остекление террас, веранд и беседок <span class="raluma-footer__cityline-break">в Санкт-Петербурге и ЛО</span>';
+      cityline.textContent = 'Raluma безрамное остекление террас, веранд и беседок в Санкт-Петербурге и ЛО';
       centerCol.appendChild(cityline);
     }
 
@@ -346,46 +358,80 @@
     });
   }
 
-  function setupDeferredCookieBanner(actionBar) {
-    var cookieBanner = document.querySelector('#rec2145452701 .t886');
-    if (!cookieBanner) return;
-    if (!window.matchMedia('(max-width: 980px)').matches) return;
-
-    var storageKey = cookieBanner.getAttribute('data-storage-item');
-    var isAccepted = false;
-    if (storageKey) {
-      try {
-        isAccepted =
-          window.localStorage.getItem(storageKey) === '1' ||
-          window.localStorage.getItem(storageKey) === 'true' ||
-          document.cookie.indexOf(storageKey + '=1') !== -1 ||
-          document.cookie.indexOf(storageKey + '=true') !== -1;
-      } catch (error) {
-        isAccepted = document.cookie.indexOf(storageKey + '=1') !== -1 || document.cookie.indexOf(storageKey + '=true') !== -1;
-      }
+  function setupCompactCookieConsent() {
+    var storageKey = 'cookiesAccepted';
+    try {
+      if (window.localStorage.getItem(storageKey) === 'true') return;
+    } catch (error) {
+      return;
     }
-    if (isAccepted) return;
 
-    cookieBanner.classList.add('raluma-cookie-pending');
-    var threshold = 56;
-    var maxScrollY = window.scrollY || 0;
-    var triggered = false;
+    var triggerOffset = 50;
+    var shown = false;
+    var widget = document.createElement('div');
+    widget.className = 'raluma-cookie-widget';
+    widget.innerHTML =
+      '<button type="button" class="raluma-cookie-widget__trigger" aria-label="Настройки cookies">🍪</button>' +
+      '<div class="raluma-cookie-widget__popover" role="dialog" aria-label="Использование cookies" aria-hidden="true">' +
+      '  <p class="raluma-cookie-widget__text">Используем cookies для корректной работы и улучшения сервиса.</p>' +
+      '  <div class="raluma-cookie-widget__actions">' +
+      '    <button type="button" class="raluma-cookie-widget__accept">Принять</button>' +
+      '    <a href="#popup:privacy" class="raluma-cookie-widget__more">Подробнее</a>' +
+      '  </div>' +
+      '</div>';
 
-    function revealCookieBanner() {
-      if (triggered) return;
-      triggered = true;
-      cookieBanner.classList.remove('raluma-cookie-pending');
-      cookieBanner.classList.remove('t886_closed');
+    var trigger = widget.querySelector('.raluma-cookie-widget__trigger');
+    var popover = widget.querySelector('.raluma-cookie-widget__popover');
+    var acceptButton = widget.querySelector('.raluma-cookie-widget__accept');
+
+    function openPopover() {
+      widget.classList.add('is-open');
+      popover.setAttribute('aria-hidden', 'false');
+    }
+
+    function closePopover() {
+      widget.classList.remove('is-open');
+      popover.setAttribute('aria-hidden', 'true');
+    }
+
+    function revealWidget() {
+      if (shown) return;
+      shown = true;
+      widget.classList.add('is-visible');
       window.removeEventListener('scroll', onScroll, { passive: true });
-      if (actionBar) {
-        document.documentElement.style.setProperty('--raluma-mobile-bar-height', (actionBar.offsetHeight || 76) + 'px');
-      }
     }
 
     function onScroll() {
-      var currentY = window.scrollY || 0;
-      if (currentY > maxScrollY) maxScrollY = currentY;
-      if (maxScrollY >= threshold) revealCookieBanner();
+      if ((window.scrollY || 0) >= triggerOffset) revealWidget();
+    }
+
+    trigger.addEventListener('click', function () {
+      if (widget.classList.contains('is-open')) {
+        closePopover();
+      } else {
+        openPopover();
+      }
+    });
+
+    acceptButton.addEventListener('click', function () {
+      try {
+        window.localStorage.setItem(storageKey, 'true');
+      } catch (error) {}
+      closePopover();
+      widget.remove();
+    });
+
+    document.addEventListener('click', function (event) {
+      if (!widget.classList.contains('is-open')) return;
+      if (widget.contains(event.target)) return;
+      closePopover();
+    });
+
+    document.body.appendChild(widget);
+
+    if ((window.scrollY || 0) >= triggerOffset) {
+      revealWidget();
+      return;
     }
 
     window.addEventListener('scroll', onScroll, { passive: true });
@@ -393,9 +439,6 @@
 
   onReady(function () {
     document.querySelectorAll('form.lead-form').forEach(attachLeadFormHandler);
-
-    var cookieWrapper = document.querySelector('#rec2145452701 .t886__wrapper');
-    if (cookieWrapper) cookieWrapper.style.maxWidth = 'calc(100vw - 32px)';
 
     injectCallUxStyles();
     stabilizeHeroSubtitle();
@@ -406,7 +449,7 @@
     syncMobileOffsets(mobileBar);
     setupContextMobileBar(mobileBar);
     setupAnchorTargets();
-    setupDeferredCookieBanner(mobileBar);
+    setupCompactCookieConsent();
 
     if (typeof window.t_prod__init !== 'function') {
       window.t_prod__init = function () {};
