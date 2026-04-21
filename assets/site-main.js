@@ -120,7 +120,7 @@
     var style = document.createElement('style');
     style.id = 'raluma-call-ux-style';
     style.textContent = [
-      ':root{--raluma-callbar-height:74px;--raluma-mobile-bar-height:76px;}',
+      ':root{--raluma-callbar-height:74px;--raluma-mobile-bar-height:76px;--raluma-mobile-safe-gap:14px;--raluma-anchor-offset-mobile:18px;--raluma-anchor-offset-desktop:92px;}',
       '.raluma-callbar{position:fixed;top:18px;right:20px;left:auto;z-index:990;background:#ffffff;border:1px solid rgba(11,24,43,0.16);box-shadow:0 10px 26px rgba(11,24,43,0.12);border-radius:16px;padding:12px 14px;min-width:320px;max-width:min(420px,calc(100vw - 40px));transition:border-color .24s ease,box-shadow .24s ease,transform .24s ease;}',
       '.raluma-callbar__inner{display:flex;flex-direction:column;gap:0;}',
       '.raluma-callbar__mainline{display:flex;align-items:center;justify-content:space-between;gap:14px;}',
@@ -137,16 +137,17 @@
       '.raluma-mobile-actions{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:992;display:none;background:rgba(255,255,255,0.96);backdrop-filter:blur(10px);padding:8px;border:1px solid rgba(11,24,43,0.1);border-radius:18px;box-shadow:0 10px 28px rgba(11,24,43,0.18);gap:8px;}',
       '.raluma-mobile-actions__btn{flex:1;display:flex;align-items:center;justify-content:center;min-height:52px;padding:0 12px;border-radius:12px;text-decoration:none;font-size:14px;line-height:1.2;font-weight:600;border:1px solid transparent;}',
       '.raluma-mobile-actions__btn--call{color:#111;background:#fff;border-color:rgba(17,17,17,0.18);}',
-      '.raluma-mobile-actions__btn--calc{color:#fff;background:#ff0000;}',
+      '.raluma-mobile-actions__btn--calc{color:#fff;background:#ff0000;max-width:280px;opacity:1;transform:translateX(0);transition:max-width .22s ease,opacity .18s ease,transform .22s ease,padding .22s ease,margin .22s ease,border-width .22s ease;}',
+      '.raluma-mobile-actions.is-form-zone .raluma-mobile-actions__btn--calc{max-width:0;opacity:0;transform:translateX(10px);padding-left:0;padding-right:0;margin:0;border-width:0;overflow:hidden;pointer-events:none;}',
+      '.raluma-mobile-actions.is-form-zone .raluma-mobile-actions__btn--call{flex:1 1 100%;}',
       '.raluma-mobile-actions__btn:focus-visible{outline:2px solid #111;outline-offset:1px;}',
       '.raluma-mobile-actions__btn:active{transform:translateY(1px);}',
-      '.raluma-form-phone-note{margin-top:14px;font-size:16px;line-height:1.4;color:#111;text-align:center;}',
-      '.raluma-form-phone-note a{color:#111;font-weight:600;text-decoration:none;border-bottom:1px solid rgba(17,17,17,0.3);}',
-      '.raluma-form-phone-note a:hover,.raluma-form-phone-note a:focus-visible{color:#d40000;border-bottom-color:#d40000;outline:none;}',
+      'section#lead-form{scroll-margin-top:var(--raluma-anchor-offset-desktop);}',
+      '#cases-prices{scroll-margin-top:var(--raluma-anchor-offset-desktop);}',
       '@media screen and (min-width:981px){body{padding-top:0;}#rec2145215921 .t890{bottom:20px;} }',
-      '@media screen and (max-width:980px){.raluma-callbar{display:none!important;}.raluma-mobile-actions{display:flex;}body{padding-bottom:calc(var(--raluma-mobile-bar-height) + env(safe-area-inset-bottom) + 22px);}#rec2145215921 .t890{bottom:calc(var(--raluma-mobile-bar-height) + env(safe-area-inset-bottom) + 24px);} }',
+      '@media screen and (max-width:980px){.raluma-callbar{display:none!important;}.raluma-mobile-actions{display:flex;}body{padding-bottom:calc(var(--raluma-mobile-bar-height) + env(safe-area-inset-bottom) + 22px);}#rec2145215921 .t890{bottom:calc(var(--raluma-mobile-bar-height) + env(safe-area-inset-bottom) + var(--raluma-mobile-safe-gap));}#rec2143512671 .t-btnflex_type_button{display:none!important;}#rec2143512671 .t182__buttons{justify-content:center;}section#lead-form{scroll-margin-top:var(--raluma-anchor-offset-mobile);}#cases-prices{scroll-margin-top:var(--raluma-anchor-offset-mobile);} }',
       '@media screen and (max-width:1200px){.raluma-callbar{top:14px;right:14px;min-width:290px;}}',
-      '@media screen and (max-width:640px){.raluma-form-phone-note{font-size:14px;margin-top:12px;}}'
+      '@media screen and (max-width:640px){#rec2143512671 .t182__buttons{margin-top:28px;}}'
     ].join('');
 
     document.head.appendChild(style);
@@ -221,19 +222,54 @@
     }
 
     document.body.appendChild(bar);
+
+    return bar;
   }
 
-  function insertFormPhoneNote() {
-    if (document.querySelector('.raluma-form-phone-note')) return;
+  function syncMobileOffsets(actionBar) {
+    function update() {
+      if (!actionBar || !window.matchMedia('(max-width: 980px)').matches) return;
+      var height = actionBar.offsetHeight || 76;
+      document.documentElement.style.setProperty('--raluma-mobile-bar-height', height + 'px');
+    }
 
-    var descr = document.querySelector('#rec2144564801 .t722__descr');
-    if (!descr || !descr.parentElement) return;
+    update();
+    window.addEventListener('resize', update);
+  }
 
-    var note = document.createElement('p');
-    note.className = 'raluma-form-phone-note';
-    note.innerHTML = 'Или позвоните сразу: <a href="' + PHONE_HREF + '" aria-label="Позвонить по номеру +7 (812) 330-74-15">' + PHONE_DISPLAY + '</a>';
+  function setupContextMobileBar(actionBar) {
+    if (!actionBar) return;
 
-    descr.insertAdjacentElement('afterend', note);
+    var leadSection = document.getElementById('lead-form');
+    if (!leadSection || typeof window.IntersectionObserver !== 'function') return;
+
+    var observer = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          actionBar.classList.toggle('is-form-zone', entry.isIntersecting || entry.intersectionRatio > 0);
+        });
+      },
+      {
+        root: null,
+        threshold: [0, 0.15, 0.3],
+        rootMargin: '0px 0px -20% 0px'
+      }
+    );
+
+    observer.observe(leadSection);
+  }
+
+  function setupAnchorTargets() {
+    var leadLinks = document.querySelectorAll('a[href="#rec2144564801"], a[href="#lead-form"]');
+    leadLinks.forEach(function (link) {
+      var txt = (link.textContent || '').trim();
+      if (txt.indexOf('Рассчитать стоимость') === -1) return;
+      link.setAttribute('href', '#lead-form');
+      link.addEventListener('click', function (event) {
+        event.preventDefault();
+        scrollToLeadForm();
+      });
+    });
   }
 
   onReady(function () {
@@ -245,8 +281,10 @@
     injectCallUxStyles();
     insertDesktopStickyCallbar();
     setupCallbarStateListener();
-    insertMobileActionBar();
-    insertFormPhoneNote();
+    var mobileBar = insertMobileActionBar();
+    syncMobileOffsets(mobileBar);
+    setupContextMobileBar(mobileBar);
+    setupAnchorTargets();
 
     if (typeof window.t_prod__init !== 'function') {
       window.t_prod__init = function () {};
