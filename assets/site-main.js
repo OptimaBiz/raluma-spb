@@ -120,7 +120,7 @@
     var style = document.createElement('style');
     style.id = 'raluma-call-ux-style';
     style.textContent = [
-      ':root{--raluma-callbar-height:74px;--raluma-mobile-bar-height:76px;--raluma-mobile-safe-gap:14px;--raluma-anchor-offset-mobile:18px;--raluma-anchor-offset-desktop:92px;}',
+      ':root{--raluma-callbar-height:74px;--raluma-mobile-bar-height:76px;--bottom-bar-height:76px;--raluma-mobile-safe-gap:14px;--raluma-anchor-offset-mobile:18px;--raluma-anchor-offset-desktop:92px;}',
       '.raluma-callbar{position:fixed;top:18px;right:20px;left:auto;z-index:990;background:#ffffff;border:1px solid rgba(11,24,43,0.16);box-shadow:0 10px 26px rgba(11,24,43,0.12);border-radius:16px;padding:12px 14px;min-width:320px;max-width:min(420px,calc(100vw - 40px));transition:border-color .24s ease,box-shadow .24s ease,transform .24s ease;}',
       '.raluma-callbar__inner{display:flex;flex-direction:column;gap:0;}',
       '.raluma-callbar__mainline{display:flex;align-items:center;justify-content:space-between;gap:14px;}',
@@ -145,9 +145,10 @@
       'section#lead-form{scroll-margin-top:var(--raluma-anchor-offset-desktop);}',
       '#cases-prices{scroll-margin-top:var(--raluma-anchor-offset-desktop);}',
       '@media screen and (min-width:981px){body{padding-top:0;}#rec2145215921 .t890{bottom:20px;} }',
-      '@media screen and (max-width:980px){.raluma-callbar{display:none!important;}.raluma-mobile-actions{display:flex;}body{padding-bottom:calc(var(--raluma-mobile-bar-height) + env(safe-area-inset-bottom) + 22px);}#rec2145215921 .t890{bottom:calc(var(--raluma-mobile-bar-height) + env(safe-area-inset-bottom) + var(--raluma-mobile-safe-gap));}#rec2143512671 .t-btnflex_type_button{display:none!important;}#rec2143512671 .t182__buttons{justify-content:center;}section#lead-form{scroll-margin-top:var(--raluma-anchor-offset-mobile);}#cases-prices{scroll-margin-top:var(--raluma-anchor-offset-mobile);} }',
+      '@media screen and (max-width:980px){.raluma-callbar{display:none!important;}.raluma-mobile-actions{display:flex;}body{padding-bottom:calc(var(--raluma-mobile-bar-height) + env(safe-area-inset-bottom) + 22px);}#rec2145215921 .t890{bottom:calc(var(--raluma-mobile-bar-height) + env(safe-area-inset-bottom) + var(--raluma-mobile-safe-gap));}section#lead-form{scroll-margin-top:var(--raluma-anchor-offset-mobile);}#cases-prices{scroll-margin-top:var(--raluma-anchor-offset-mobile);} }',
       '@media screen and (max-width:1200px){.raluma-callbar{top:14px;right:14px;min-width:290px;}}',
-      '@media screen and (max-width:640px){#rec2143512671 .t182__buttons{margin-top:28px;}}'
+      '@media screen and (max-width:640px){#rec2143512671 .t182__buttons{margin-top:28px;}}',
+      '@media screen and (max-width:767px){#rec2143512671 .t182__content-wrapper{max-width:330px;}#rec2143512671 .t182__title{margin-bottom:12px;}#rec2143512671 .t182__descr{font-size:15px;line-height:1.35;max-width:none;white-space:nowrap;}#rec2143512671 .t182__descr br{display:none;}#rec2143512671 .t182__brand{display:none;}#rec2143512671 .t182__buttons{margin-top:16px;justify-content:center;}#rec2143512671 .t-btnflex_type_button{display:none!important;}#rec2143512671 .t182__wrapper{padding-bottom:calc(var(--bottom-bar-height) + env(safe-area-inset-bottom) + 28px);}#rec2145215921 .t890{bottom:calc(var(--bottom-bar-height) + 16px);} }'
     ].join('');
 
     document.head.appendChild(style);
@@ -231,6 +232,7 @@
       if (!actionBar || !window.matchMedia('(max-width: 980px)').matches) return;
       var height = actionBar.offsetHeight || 76;
       document.documentElement.style.setProperty('--raluma-mobile-bar-height', height + 'px');
+      document.documentElement.style.setProperty('--bottom-bar-height', height + 'px');
     }
 
     update();
