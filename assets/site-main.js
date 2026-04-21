@@ -135,6 +135,7 @@
       '.raluma-callbar.is-scrolled .raluma-callbar__cta{background:#111;color:#fff;border-color:#111;}',
       '.raluma-callbar.is-scrolled .raluma-callbar__cta:hover,.raluma-callbar.is-scrolled .raluma-callbar__cta:focus-visible{background:#2d3949;border-color:#2d3949;color:#fff;}',
       '.raluma-mobile-actions{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:994;display:none;background:rgba(255,255,255,0.96);backdrop-filter:blur(10px);padding:8px;border:1px solid rgba(11,24,43,0.1);border-radius:18px;box-shadow:0 10px 28px rgba(11,24,43,0.18);gap:8px;}',
+      '.raluma-mobile-actions.is-context-hidden{opacity:0;visibility:hidden;pointer-events:none;transform:translateY(14px);}',
       '.raluma-mobile-actions__btn{flex:1;display:flex;align-items:center;justify-content:center;min-height:52px;padding:0 12px;border-radius:12px;text-decoration:none;font-size:14px;line-height:1.2;font-weight:600;border:1px solid transparent;}',
       '.raluma-mobile-actions__btn--call{color:#111;background:#fff;border-color:rgba(17,17,17,0.18);}',
       '.raluma-mobile-actions__btn--calc{color:#fff;background:#ff0000;max-width:280px;opacity:1;transform:translateX(0);transition:max-width .22s ease,opacity .18s ease,transform .22s ease,padding .22s ease,margin .22s ease,border-width .22s ease;}',
@@ -145,9 +146,21 @@
       'section#lead-form{scroll-margin-top:var(--raluma-anchor-offset-desktop);}',
       '#cases-prices{scroll-margin-top:var(--raluma-anchor-offset-desktop);}',
       '@media screen and (min-width:981px){body{padding-top:0;}#rec2145215921 .t890{bottom:20px;} }',
-      '@media screen and (max-width:980px){.raluma-callbar{display:none!important;}.raluma-mobile-actions{display:flex;}body{padding-bottom:calc(var(--raluma-mobile-bar-height) + env(safe-area-inset-bottom) + 22px);}#rec2145215921 .t890{z-index:993;bottom:calc(var(--raluma-mobile-bar-height) + env(safe-area-inset-bottom) + var(--raluma-mobile-safe-gap));}#rec2145452701 .t886{left:12px;right:12px!important;bottom:calc(var(--raluma-mobile-bar-height) + env(safe-area-inset-bottom) + var(--raluma-mobile-safe-gap) + var(--raluma-mobile-scrollup-size) + var(--raluma-mobile-scrollup-gap));z-index:992;}#rec2145452701 .t886__wrapper{width:100%!important;max-width:100%!important;box-sizing:border-box;}#rec2145452701 .t886.raluma-cookie-pending{opacity:0;visibility:hidden;pointer-events:none;}section#lead-form{scroll-margin-top:var(--raluma-anchor-offset-mobile);}#cases-prices{scroll-margin-top:var(--raluma-anchor-offset-mobile);} }',
+      '@media screen and (max-width:980px){.raluma-callbar{display:none!important;}.raluma-mobile-actions{display:flex;transition:opacity .24s ease,visibility .24s ease,transform .24s ease;}body{padding-bottom:calc(var(--raluma-mobile-bar-height) + env(safe-area-inset-bottom) + 22px);}#rec2145215921 .t890{z-index:993;bottom:calc(var(--raluma-mobile-bar-height) + env(safe-area-inset-bottom) + var(--raluma-mobile-safe-gap));}#rec2145452701 .t886{left:12px;right:12px!important;bottom:calc(var(--raluma-mobile-bar-height) + env(safe-area-inset-bottom) + var(--raluma-mobile-safe-gap) + var(--raluma-mobile-scrollup-size) + var(--raluma-mobile-scrollup-gap));z-index:992;}#rec2145452701 .t886__wrapper{width:100%!important;max-width:100%!important;box-sizing:border-box;}#rec2145452701 .t886.raluma-cookie-pending{opacity:0;visibility:hidden;pointer-events:none;}section#lead-form{scroll-margin-top:var(--raluma-anchor-offset-mobile);}#cases-prices{scroll-margin-top:var(--raluma-anchor-offset-mobile);} }',
       '@media screen and (max-width:1200px){.raluma-callbar{top:14px;right:14px;min-width:290px;}}',
       '@media screen and (max-width:640px){#rec2143512671 .t182__buttons{margin-top:28px;}}',
+      '#rec2143512671 .t182__descr-line{display:block;}',
+      '#rec2143512671 .t182__descr-line--second{margin-top:2px;}',
+      '#rec2143512671 .t-btnflex.t-btnflex_type_button2{color:#0f1726;background:linear-gradient(180deg,#ffffff 0%,#f5f7fb 100%);border:1px solid rgba(14,25,43,0.12)!important;box-shadow:0 12px 28px rgba(10,18,34,0.22),inset 0 1px 0 rgba(255,255,255,0.88)!important;transition:background-color .2s ease,color .2s ease,border-color .2s ease,box-shadow .22s ease,transform .22s ease;}',
+      '#rec2143512671 .t-btnflex.t-btnflex_type_button2:active{transform:translateY(1px) scale(.995);box-shadow:0 8px 16px rgba(10,18,34,0.2),inset 0 1px 0 rgba(255,255,255,0.85)!important;}',
+      '@media (hover:hover){#rec2143512671 .t-btnflex.t-btnflex_type_button2:not(.t-animate_no-hover):hover,#rec2143512671 .t-btnflex.t-btnflex_type_button2:not(.t-animate_no-hover):focus-visible{color:#141f31!important;border-color:rgba(14,25,43,0.24)!important;background:linear-gradient(180deg,#ffffff 0%,#eef2f8 100%)!important;box-shadow:0 16px 34px rgba(10,18,34,0.26),inset 0 1px 0 rgba(255,255,255,0.95)!important;}}',
+      '#rec2145460381 .t463__maincontainer{padding-top:22px;padding-bottom:18px;}',
+      '#rec2145460381 .t463__content{display:flex;flex-direction:column;gap:14px;}',
+      '#rec2145460381 .raluma-footer__cityline{color:#fff;font-size:15px;line-height:1.4;font-weight:500;text-align:left;max-width:620px;}',
+      '#rec2145460381 .raluma-footer__cityline-break{display:block;}',
+      '#rec2145460381 .raluma-footer__copyright-row{display:flex;justify-content:center;}',
+      '#rec2145460381 .raluma-footer__copyright-row .t463__copyright{margin:0;text-align:center;}',
+      '@media screen and (max-width:980px){#rec2145460381 .t463__maincontainer{padding-top:18px;padding-bottom:16px;}#rec2145460381 .t463__colwrapper{display:flex;flex-direction:column;align-items:center;gap:10px;}#rec2145460381 .t463__col{width:100%;text-align:center!important;}#rec2145460381 .raluma-footer__cityline{order:1;text-align:center;font-size:14px;line-height:1.45;max-width:360px;}#rec2145460381 .t463__col:first-child{order:2;}#rec2145460381 .t463__logo{max-width:76px!important;height:auto;}#rec2145460381 .raluma-footer__copyright-row{order:3;}#rec2145460381 .t463__col:last-child{order:4;}#rec2145460381 .t-sociallinks__wrapper{justify-content:center;}}',
       '@media screen and (max-width:767px){#rec2143512671 .t182__content-wrapper{max-width:330px;}#rec2143512671 .t182__title{margin-bottom:12px;}#rec2143512671 .t182__descr{font-size:15px;line-height:1.42;max-width:320px;white-space:normal;text-wrap:balance;margin-left:auto;margin-right:auto;}#rec2143512671 .t182__descr br{display:none;}#rec2143512671 .t182__brand{display:none;}#rec2143512671 .t182__buttons{margin-top:16px;justify-content:center;}#rec2143512671 .t-btnflex_type_button{display:none!important;}#rec2143512671 .t182__wrapper{padding-bottom:calc(var(--bottom-bar-height) + env(safe-area-inset-bottom) + 28px);} }'
     ].join('');
 
@@ -243,22 +256,81 @@
     if (!actionBar) return;
 
     var leadSection = document.getElementById('lead-form');
-    if (!leadSection || typeof window.IntersectionObserver !== 'function') return;
+    var consultSection = document.getElementById('rec2144142381');
+    if (typeof window.IntersectionObserver !== 'function') return;
 
-    var observer = new IntersectionObserver(
+    if (leadSection) {
+      var formObserver = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            actionBar.classList.toggle('is-form-zone', entry.isIntersecting || entry.intersectionRatio > 0);
+          });
+        },
+        {
+          root: null,
+          threshold: [0, 0.15, 0.3],
+          rootMargin: '0px 0px -20% 0px'
+        }
+      );
+
+      formObserver.observe(leadSection);
+    }
+
+    if (!consultSection) return;
+
+    var consultObserver = new IntersectionObserver(
       function (entries) {
         entries.forEach(function (entry) {
-          actionBar.classList.toggle('is-form-zone', entry.isIntersecting || entry.intersectionRatio > 0);
+          var hideBar = entry.isIntersecting && entry.intersectionRatio > 0.18;
+          actionBar.classList.toggle('is-context-hidden', hideBar);
         });
       },
       {
         root: null,
-        threshold: [0, 0.15, 0.3],
-        rootMargin: '0px 0px -20% 0px'
+        threshold: [0, 0.18, 0.35, 0.6],
+        rootMargin: '-8% 0px -18% 0px'
       }
     );
 
-    observer.observe(leadSection);
+    consultObserver.observe(consultSection);
+  }
+
+  function stabilizeHeroSubtitle() {
+    var subtitle = document.querySelector('#rec2143512671 .t182__descr');
+    if (!subtitle) return;
+
+    subtitle.innerHTML =
+      '<span class="t182__descr-line">Свет, тишина и открытое пространство</span>' +
+      '<span class="t182__descr-line t182__descr-line--second">с панорамным видом</span>';
+  }
+
+  function enhanceFooterLayout() {
+    var footer = document.getElementById('rec2145460381');
+    if (!footer) return;
+
+    var content = footer.querySelector('.t463__content');
+    var colWrapper = footer.querySelector('.t463__colwrapper');
+    var copyright = footer.querySelector('.t463__copyright');
+    if (!content || !colWrapper || !copyright) return;
+
+    var centerCol = footer.querySelector('.t463__col_center');
+    if (!centerCol) return;
+
+    var cityline = footer.querySelector('.raluma-footer__cityline');
+    if (!cityline) {
+      cityline = document.createElement('div');
+      cityline.className = 'raluma-footer__cityline';
+      cityline.innerHTML = 'Raluma безрамное остекление террас, веранд и беседок <span class="raluma-footer__cityline-break">в Санкт-Петербурге и ЛО</span>';
+      centerCol.appendChild(cityline);
+    }
+
+    var copyrightRow = footer.querySelector('.raluma-footer__copyright-row');
+    if (!copyrightRow) {
+      copyrightRow = document.createElement('div');
+      copyrightRow.className = 'raluma-footer__copyright-row';
+      content.appendChild(copyrightRow);
+    }
+    copyrightRow.appendChild(copyright);
   }
 
   function setupAnchorTargets() {
@@ -326,6 +398,8 @@
     if (cookieWrapper) cookieWrapper.style.maxWidth = 'calc(100vw - 32px)';
 
     injectCallUxStyles();
+    stabilizeHeroSubtitle();
+    enhanceFooterLayout();
     insertDesktopStickyCallbar();
     setupCallbarStateListener();
     var mobileBar = insertMobileActionBar();
