@@ -1,4 +1,7 @@
 (function () {
+  var PHONE_DISPLAY = '+7 (812) 330-74-15';
+  var PHONE_HREF = 'tel:+78123307415';
+
   function onReady(fn) {
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', fn, { once: true });
@@ -67,7 +70,7 @@
 
       if (successBox) successBox.style.display = 'none';
 
-      var name = (nameInput && nameInput.value || '').trim();
+      var name = ((nameInput && nameInput.value) || '').trim();
       var phone = normalizePhone((phoneInput && phoneInput.value) || '');
 
       if (name.length < 2) {
@@ -100,7 +103,6 @@
           throw new Error('request_failed');
         }
 
-
         window.setTimeout(function () {
           window.location.href = '/thanks.html';
         }, 400);
@@ -112,11 +114,139 @@
     });
   }
 
+  function injectCallUxStyles() {
+    if (document.getElementById('raluma-call-ux-style')) return;
+
+    var style = document.createElement('style');
+    style.id = 'raluma-call-ux-style';
+    style.textContent = [
+      ':root{--raluma-callbar-height:74px;--raluma-mobile-bar-height:76px;}',
+      '.raluma-callbar{position:fixed;top:18px;right:20px;left:auto;z-index:990;background:#ffffff;border:1px solid rgba(11,24,43,0.16);box-shadow:0 10px 26px rgba(11,24,43,0.12);border-radius:16px;padding:12px 14px;min-width:320px;max-width:min(420px,calc(100vw - 40px));transition:border-color .24s ease,box-shadow .24s ease,transform .24s ease;}',
+      '.raluma-callbar__inner{display:flex;flex-direction:column;gap:0;}',
+      '.raluma-callbar__mainline{display:flex;align-items:center;justify-content:space-between;gap:14px;}',
+      '.raluma-callbar__phone{font-size:23px;line-height:1.2;font-weight:600;color:#111;text-decoration:none;letter-spacing:0.01em;transition:color .2s ease;white-space:nowrap;}',
+      '.raluma-callbar__hours{display:block;max-height:0;opacity:0;overflow:hidden;margin-top:0;font-size:12px;line-height:1.3;color:rgba(17,17,17,0.64);transition:max-height .24s ease,opacity .18s ease,margin-top .24s ease;}',
+      '.raluma-callbar__cta{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:0 20px;border-radius:999px;border:1px solid rgba(11,24,43,0.24);background:#ffffff;color:#111;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;text-decoration:none;white-space:nowrap;transition:all .2s ease;}',
+      '.raluma-callbar__phone:hover,.raluma-callbar__phone:focus-visible{color:#d40000;outline:none;}',
+      '.raluma-callbar__cta:hover,.raluma-callbar__cta:focus-visible{background:#111;color:#fff;border-color:#111;outline:none;}',
+      '.raluma-callbar__cta:active{transform:translateY(1px);}',
+      '.raluma-callbar.is-scrolled{border-color:rgba(11,24,43,0.22);box-shadow:0 12px 30px rgba(11,24,43,0.16);}',
+      '.raluma-callbar.is-scrolled .raluma-callbar__hours{max-height:20px;opacity:1;margin-top:8px;}',
+      '.raluma-callbar.is-scrolled .raluma-callbar__cta{background:#111;color:#fff;border-color:#111;}',
+      '.raluma-callbar.is-scrolled .raluma-callbar__cta:hover,.raluma-callbar.is-scrolled .raluma-callbar__cta:focus-visible{background:#2d3949;border-color:#2d3949;color:#fff;}',
+      '.raluma-mobile-actions{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:992;display:none;background:rgba(255,255,255,0.96);backdrop-filter:blur(10px);padding:8px;border:1px solid rgba(11,24,43,0.1);border-radius:18px;box-shadow:0 10px 28px rgba(11,24,43,0.18);gap:8px;}',
+      '.raluma-mobile-actions__btn{flex:1;display:flex;align-items:center;justify-content:center;min-height:52px;padding:0 12px;border-radius:12px;text-decoration:none;font-size:14px;line-height:1.2;font-weight:600;border:1px solid transparent;}',
+      '.raluma-mobile-actions__btn--call{color:#111;background:#fff;border-color:rgba(17,17,17,0.18);}',
+      '.raluma-mobile-actions__btn--calc{color:#fff;background:#ff0000;}',
+      '.raluma-mobile-actions__btn:focus-visible{outline:2px solid #111;outline-offset:1px;}',
+      '.raluma-mobile-actions__btn:active{transform:translateY(1px);}',
+      '.raluma-form-phone-note{margin-top:14px;font-size:16px;line-height:1.4;color:#111;text-align:center;}',
+      '.raluma-form-phone-note a{color:#111;font-weight:600;text-decoration:none;border-bottom:1px solid rgba(17,17,17,0.3);}',
+      '.raluma-form-phone-note a:hover,.raluma-form-phone-note a:focus-visible{color:#d40000;border-bottom-color:#d40000;outline:none;}',
+      '@media screen and (min-width:981px){body{padding-top:0;}#rec2145215921 .t890{bottom:20px;} }',
+      '@media screen and (max-width:980px){.raluma-callbar{display:none!important;}.raluma-mobile-actions{display:flex;}body{padding-bottom:calc(var(--raluma-mobile-bar-height) + env(safe-area-inset-bottom) + 22px);}#rec2145215921 .t890{bottom:calc(var(--raluma-mobile-bar-height) + env(safe-area-inset-bottom) + 24px);} }',
+      '@media screen and (max-width:1200px){.raluma-callbar{top:14px;right:14px;min-width:290px;}}',
+      '@media screen and (max-width:640px){.raluma-form-phone-note{font-size:14px;margin-top:12px;}}'
+    ].join('');
+
+    document.head.appendChild(style);
+  }
+
+  function insertDesktopStickyCallbar() {
+    if (document.querySelector('.raluma-callbar')) return;
+
+    var bar = document.createElement('div');
+    bar.className = 'raluma-callbar';
+    bar.innerHTML =
+      '<div class="raluma-callbar__inner">' +
+      '  <div class="raluma-callbar__mainline">' +
+      '    <a class="raluma-callbar__phone" href="' + PHONE_HREF + '" aria-label="Позвонить по номеру +7 (812) 330-74-15">' + PHONE_DISPLAY + '</a>' +
+      '    <a class="raluma-callbar__cta" href="' + PHONE_HREF + '" aria-label="Позвонить по номеру +7 (812) 330-74-15">Позвонить</a>' +
+      '  </div>' +
+      '  <span class="raluma-callbar__hours">Ежедневно 9:00–21:00</span>' +
+      '</div>';
+
+    document.body.appendChild(bar);
+  }
+
+  function setupCallbarStateListener() {
+    var callbar = document.querySelector('.raluma-callbar');
+    if (!callbar) return;
+
+    var threshold = 64;
+
+    function syncState() {
+      if (window.matchMedia('(max-width: 980px)').matches) {
+        callbar.classList.remove('is-scrolled');
+        return;
+      }
+
+      callbar.classList.toggle('is-scrolled', window.scrollY >= threshold);
+    }
+
+    syncState();
+    window.addEventListener('scroll', syncState, { passive: true });
+    window.addEventListener('resize', syncState);
+  }
+
+  function scrollToLeadForm() {
+    var target = document.getElementById('lead-form') || document.getElementById('rec2144564801');
+    if (!target) return;
+
+    var headerOffset = window.matchMedia('(min-width: 981px)').matches ? 88 : 16;
+    var top = target.getBoundingClientRect().top + window.pageYOffset - headerOffset;
+
+    window.scrollTo({
+      top: Math.max(0, top),
+      behavior: 'smooth'
+    });
+  }
+
+  function insertMobileActionBar() {
+    if (document.querySelector('.raluma-mobile-actions')) return;
+
+    var bar = document.createElement('nav');
+    bar.className = 'raluma-mobile-actions';
+    bar.setAttribute('aria-label', 'Быстрые действия');
+    bar.innerHTML =
+      '<a class="raluma-mobile-actions__btn raluma-mobile-actions__btn--call" href="' + PHONE_HREF + '" aria-label="Позвонить по номеру +7 (812) 330-74-15">Позвонить</a>' +
+      '<a class="raluma-mobile-actions__btn raluma-mobile-actions__btn--calc" href="#lead-form">Рассчитать стоимость</a>';
+
+    var calcButton = bar.querySelector('.raluma-mobile-actions__btn--calc');
+    if (calcButton) {
+      calcButton.addEventListener('click', function (event) {
+        event.preventDefault();
+        scrollToLeadForm();
+      });
+    }
+
+    document.body.appendChild(bar);
+  }
+
+  function insertFormPhoneNote() {
+    if (document.querySelector('.raluma-form-phone-note')) return;
+
+    var descr = document.querySelector('#rec2144564801 .t722__descr');
+    if (!descr || !descr.parentElement) return;
+
+    var note = document.createElement('p');
+    note.className = 'raluma-form-phone-note';
+    note.innerHTML = 'Или позвоните сразу: <a href="' + PHONE_HREF + '" aria-label="Позвонить по номеру +7 (812) 330-74-15">' + PHONE_DISPLAY + '</a>';
+
+    descr.insertAdjacentElement('afterend', note);
+  }
+
   onReady(function () {
     document.querySelectorAll('form.lead-form').forEach(attachLeadFormHandler);
 
     var cookieWrapper = document.querySelector('#rec2145452701 .t886__wrapper');
     if (cookieWrapper) cookieWrapper.style.maxWidth = 'calc(100vw - 32px)';
+
+    injectCallUxStyles();
+    insertDesktopStickyCallbar();
+    setupCallbarStateListener();
+    insertMobileActionBar();
+    insertFormPhoneNote();
 
     if (typeof window.t_prod__init !== 'function') {
       window.t_prod__init = function () {};
