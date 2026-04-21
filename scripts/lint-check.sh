@@ -1,20 +1,30 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-check_contains() {
-  local file="$1"
-  local pattern="$2"
-  if ! rg -q "$pattern" "$file"; then
-    echo "[lint-check] Missing pattern '$pattern' in $file" >&2
-    exit 1
-  fi
-}
+if ! grep -qi '<!DOCTYPE html>' index.html; then
+  echo "[lint-check] Missing pattern '<!DOCTYPE html>' in index.html" >&2
+  exit 1
+fi
 
-check_contains index.html '<!DOCTYPE html>'
-check_contains index.html '<title>'
-check_contains index.html 'lead-form'
-check_contains thanks.html '<!DOCTYPE html>'
-check_contains thanks.html 'Спасибо, заявка отправлена'
+if ! grep -q '<title>' index.html; then
+  echo "[lint-check] Missing pattern '<title>' in index.html" >&2
+  exit 1
+fi
+
+if ! grep -q 'lead-form' index.html; then
+  echo "[lint-check] Missing pattern 'lead-form' in index.html" >&2
+  exit 1
+fi
+
+if ! grep -qi '<!DOCTYPE html>' thanks.html; then
+  echo "[lint-check] Missing pattern '<!DOCTYPE html>' in thanks.html" >&2
+  exit 1
+fi
+
+if ! grep -q 'Спасибо, заявка отправлена' thanks.html; then
+  echo "[lint-check] Missing pattern 'Спасибо, заявка отправлена' in thanks.html" >&2
+  exit 1
+fi
 
 node --check assets/site-main.js
 node --check playwright.config.js
