@@ -1,0 +1,15 @@
+{
+  "name": "raluma-spb",
+  "private": true,
+  "version": "1.0.0",
+  "description": "CI checks for static GitHub Pages landing",
+  "scripts": {
+    "lint-check": "./scripts/lint-check.sh",
+    "test:e2e": "playwright test tests/e2e/smoke.spec.js",
+    "test:visual": "RUN_VISUAL=1 playwright test tests/visual/visual.spec.js",
+    "test:visual:update": "RUN_VISUAL=1 playwright test tests/visual/visual.spec.js --update-snapshots"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.54.0"
+  }
+}
