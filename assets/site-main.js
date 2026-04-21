@@ -121,19 +121,17 @@
     style.id = 'raluma-call-ux-style';
     style.textContent = [
       ':root{--raluma-callbar-height:74px;--raluma-mobile-bar-height:76px;}',
-      '.raluma-callbar{position:fixed;top:0;left:0;right:0;z-index:990;background:#182230;border-bottom:1px solid rgba(255,255,255,0.18);box-shadow:none;transition:background-color .24s ease,border-color .24s ease,box-shadow .24s ease,color .24s ease;}',
-      '.raluma-callbar__inner{max-width:1240px;margin:0 auto;display:flex;align-items:center;justify-content:flex-end;gap:22px;padding:12px 24px;min-height:var(--raluma-callbar-height);}',
-      '.raluma-callbar__phone-wrap{display:flex;flex-direction:column;align-items:flex-end;gap:2px;}',
-      '.raluma-callbar__phone{font-size:24px;line-height:1.2;font-weight:600;color:#fff;text-decoration:none;letter-spacing:0.01em;transition:color .2s ease;}',
-      '.raluma-callbar__hours{font-size:12px;line-height:1.3;color:rgba(255,255,255,0.78);transition:color .2s ease;}',
-      '.raluma-callbar__cta{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:0 26px;border-radius:999px;border:1px solid rgba(255,255,255,0.6);background:transparent;color:#fff;font-size:14px;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;text-decoration:none;transition:all .2s ease;}',
-      '.raluma-callbar__phone:hover,.raluma-callbar__phone:focus-visible{color:#fced00;outline:none;}',
-      '.raluma-callbar__cta:hover,.raluma-callbar__cta:focus-visible{background:#fff;color:#111;border-color:#fff;outline:none;}',
+      '.raluma-callbar{position:fixed;top:18px;right:20px;left:auto;z-index:990;background:#ffffff;border:1px solid rgba(11,24,43,0.16);box-shadow:0 10px 26px rgba(11,24,43,0.12);border-radius:16px;padding:12px 14px;min-width:320px;max-width:min(420px,calc(100vw - 40px));transition:border-color .24s ease,box-shadow .24s ease,transform .24s ease;}',
+      '.raluma-callbar__inner{display:flex;flex-direction:column;gap:0;}',
+      '.raluma-callbar__mainline{display:flex;align-items:center;justify-content:space-between;gap:14px;}',
+      '.raluma-callbar__phone{font-size:23px;line-height:1.2;font-weight:600;color:#111;text-decoration:none;letter-spacing:0.01em;transition:color .2s ease;white-space:nowrap;}',
+      '.raluma-callbar__hours{display:block;max-height:0;opacity:0;overflow:hidden;margin-top:0;font-size:12px;line-height:1.3;color:rgba(17,17,17,0.64);transition:max-height .24s ease,opacity .18s ease,margin-top .24s ease;}',
+      '.raluma-callbar__cta{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:0 20px;border-radius:999px;border:1px solid rgba(11,24,43,0.24);background:#ffffff;color:#111;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;text-decoration:none;white-space:nowrap;transition:all .2s ease;}',
+      '.raluma-callbar__phone:hover,.raluma-callbar__phone:focus-visible{color:#d40000;outline:none;}',
+      '.raluma-callbar__cta:hover,.raluma-callbar__cta:focus-visible{background:#111;color:#fff;border-color:#111;outline:none;}',
       '.raluma-callbar__cta:active{transform:translateY(1px);}',
-      '.raluma-callbar.is-scrolled{background:#ffffff;border-bottom:1px solid rgba(11,24,43,0.12);box-shadow:0 10px 24px rgba(11,24,43,0.09);}',
-      '.raluma-callbar.is-scrolled .raluma-callbar__phone{color:#111;}',
-      '.raluma-callbar.is-scrolled .raluma-callbar__hours{color:rgba(17,17,17,0.62);}',
-      '.raluma-callbar.is-scrolled .raluma-callbar__phone:hover,.raluma-callbar.is-scrolled .raluma-callbar__phone:focus-visible{color:#d40000;}',
+      '.raluma-callbar.is-scrolled{border-color:rgba(11,24,43,0.22);box-shadow:0 12px 30px rgba(11,24,43,0.16);}',
+      '.raluma-callbar.is-scrolled .raluma-callbar__hours{max-height:20px;opacity:1;margin-top:8px;}',
       '.raluma-callbar.is-scrolled .raluma-callbar__cta{background:#111;color:#fff;border-color:#111;}',
       '.raluma-callbar.is-scrolled .raluma-callbar__cta:hover,.raluma-callbar.is-scrolled .raluma-callbar__cta:focus-visible{background:#2d3949;border-color:#2d3949;color:#fff;}',
       '.raluma-mobile-actions{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:992;display:none;background:rgba(255,255,255,0.96);backdrop-filter:blur(10px);padding:8px;border:1px solid rgba(11,24,43,0.1);border-radius:18px;box-shadow:0 10px 28px rgba(11,24,43,0.18);gap:8px;}',
@@ -145,8 +143,9 @@
       '.raluma-form-phone-note{margin-top:14px;font-size:16px;line-height:1.4;color:#111;text-align:center;}',
       '.raluma-form-phone-note a{color:#111;font-weight:600;text-decoration:none;border-bottom:1px solid rgba(17,17,17,0.3);}',
       '.raluma-form-phone-note a:hover,.raluma-form-phone-note a:focus-visible{color:#d40000;border-bottom-color:#d40000;outline:none;}',
-      '@media screen and (min-width:981px){body{padding-top:var(--raluma-callbar-height);}#rec2145215921 .t890{bottom:20px;} }',
+      '@media screen and (min-width:981px){body{padding-top:0;}#rec2145215921 .t890{bottom:20px;} }',
       '@media screen and (max-width:980px){.raluma-callbar{display:none!important;}.raluma-mobile-actions{display:flex;}body{padding-bottom:calc(var(--raluma-mobile-bar-height) + env(safe-area-inset-bottom) + 22px);}#rec2145215921 .t890{bottom:calc(var(--raluma-mobile-bar-height) + env(safe-area-inset-bottom) + 24px);} }',
+      '@media screen and (max-width:1200px){.raluma-callbar{top:14px;right:14px;min-width:290px;}}',
       '@media screen and (max-width:640px){.raluma-form-phone-note{font-size:14px;margin-top:12px;}}'
     ].join('');
 
@@ -160,11 +159,11 @@
     bar.className = 'raluma-callbar';
     bar.innerHTML =
       '<div class="raluma-callbar__inner">' +
-      '  <div class="raluma-callbar__phone-wrap">' +
+      '  <div class="raluma-callbar__mainline">' +
       '    <a class="raluma-callbar__phone" href="' + PHONE_HREF + '" aria-label="Позвонить по номеру +7 (812) 330-74-15">' + PHONE_DISPLAY + '</a>' +
-      '    <span class="raluma-callbar__hours">Ежедневно 9:00–21:00</span>' +
+      '    <a class="raluma-callbar__cta" href="' + PHONE_HREF + '" aria-label="Позвонить по номеру +7 (812) 330-74-15">Позвонить</a>' +
       '  </div>' +
-      '  <a class="raluma-callbar__cta" href="' + PHONE_HREF + '" aria-label="Позвонить по номеру +7 (812) 330-74-15">Позвонить</a>' +
+      '  <span class="raluma-callbar__hours">Ежедневно 9:00–21:00</span>' +
       '</div>';
 
     document.body.appendChild(bar);
@@ -174,7 +173,7 @@
     var callbar = document.querySelector('.raluma-callbar');
     if (!callbar) return;
 
-    var threshold = 56;
+    var threshold = 64;
 
     function syncState() {
       if (window.matchMedia('(max-width: 980px)').matches) {
