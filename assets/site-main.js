@@ -121,15 +121,21 @@
     style.id = 'raluma-call-ux-style';
     style.textContent = [
       ':root{--raluma-callbar-height:74px;--raluma-mobile-bar-height:76px;}',
-      '.raluma-callbar{position:fixed;top:0;left:0;right:0;z-index:990;background:rgba(255,255,255,0.92);backdrop-filter:blur(8px);border-bottom:1px solid rgba(11,24,43,0.08);box-shadow:0 8px 22px rgba(11,24,43,0.08);}',
+      '.raluma-callbar{position:fixed;top:0;left:0;right:0;z-index:990;background:#182230;border-bottom:1px solid rgba(255,255,255,0.18);box-shadow:none;transition:background-color .24s ease,border-color .24s ease,box-shadow .24s ease,color .24s ease;}',
       '.raluma-callbar__inner{max-width:1240px;margin:0 auto;display:flex;align-items:center;justify-content:flex-end;gap:22px;padding:12px 24px;min-height:var(--raluma-callbar-height);}',
       '.raluma-callbar__phone-wrap{display:flex;flex-direction:column;align-items:flex-end;gap:2px;}',
-      '.raluma-callbar__phone{font-size:24px;line-height:1.2;font-weight:600;color:#111;text-decoration:none;letter-spacing:0.01em;}',
-      '.raluma-callbar__hours{font-size:12px;line-height:1.3;color:rgba(17,17,17,0.65);}',
-      '.raluma-callbar__cta{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:0 26px;border-radius:999px;border:1px solid rgba(0,0,0,0.22);background:#fff;color:#121212;font-size:14px;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;text-decoration:none;transition:all .2s ease;}',
-      '.raluma-callbar__phone:hover,.raluma-callbar__phone:focus-visible{color:#d40000;outline:none;}',
-      '.raluma-callbar__cta:hover,.raluma-callbar__cta:focus-visible{background:#111;color:#fff;border-color:#111;outline:none;}',
+      '.raluma-callbar__phone{font-size:24px;line-height:1.2;font-weight:600;color:#fff;text-decoration:none;letter-spacing:0.01em;transition:color .2s ease;}',
+      '.raluma-callbar__hours{font-size:12px;line-height:1.3;color:rgba(255,255,255,0.78);transition:color .2s ease;}',
+      '.raluma-callbar__cta{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:0 26px;border-radius:999px;border:1px solid rgba(255,255,255,0.6);background:transparent;color:#fff;font-size:14px;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;text-decoration:none;transition:all .2s ease;}',
+      '.raluma-callbar__phone:hover,.raluma-callbar__phone:focus-visible{color:#fced00;outline:none;}',
+      '.raluma-callbar__cta:hover,.raluma-callbar__cta:focus-visible{background:#fff;color:#111;border-color:#fff;outline:none;}',
       '.raluma-callbar__cta:active{transform:translateY(1px);}',
+      '.raluma-callbar.is-scrolled{background:#ffffff;border-bottom:1px solid rgba(11,24,43,0.12);box-shadow:0 10px 24px rgba(11,24,43,0.09);}',
+      '.raluma-callbar.is-scrolled .raluma-callbar__phone{color:#111;}',
+      '.raluma-callbar.is-scrolled .raluma-callbar__hours{color:rgba(17,17,17,0.62);}',
+      '.raluma-callbar.is-scrolled .raluma-callbar__phone:hover,.raluma-callbar.is-scrolled .raluma-callbar__phone:focus-visible{color:#d40000;}',
+      '.raluma-callbar.is-scrolled .raluma-callbar__cta{background:#111;color:#fff;border-color:#111;}',
+      '.raluma-callbar.is-scrolled .raluma-callbar__cta:hover,.raluma-callbar.is-scrolled .raluma-callbar__cta:focus-visible{background:#2d3949;border-color:#2d3949;color:#fff;}',
       '.raluma-mobile-actions{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:992;display:none;background:rgba(255,255,255,0.96);backdrop-filter:blur(10px);padding:8px;border:1px solid rgba(11,24,43,0.1);border-radius:18px;box-shadow:0 10px 28px rgba(11,24,43,0.18);gap:8px;}',
       '.raluma-mobile-actions__btn{flex:1;display:flex;align-items:center;justify-content:center;min-height:52px;padding:0 12px;border-radius:12px;text-decoration:none;font-size:14px;line-height:1.2;font-weight:600;border:1px solid transparent;}',
       '.raluma-mobile-actions__btn--call{color:#111;background:#fff;border-color:rgba(17,17,17,0.18);}',
@@ -162,6 +168,26 @@
       '</div>';
 
     document.body.appendChild(bar);
+  }
+
+  function setupCallbarStateListener() {
+    var callbar = document.querySelector('.raluma-callbar');
+    if (!callbar) return;
+
+    var threshold = 56;
+
+    function syncState() {
+      if (window.matchMedia('(max-width: 980px)').matches) {
+        callbar.classList.remove('is-scrolled');
+        return;
+      }
+
+      callbar.classList.toggle('is-scrolled', window.scrollY >= threshold);
+    }
+
+    syncState();
+    window.addEventListener('scroll', syncState, { passive: true });
+    window.addEventListener('resize', syncState);
   }
 
   function scrollToLeadForm() {
@@ -219,6 +245,7 @@
 
     injectCallUxStyles();
     insertDesktopStickyCallbar();
+    setupCallbarStateListener();
     insertMobileActionBar();
     insertFormPhoneNote();
 
