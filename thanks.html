@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Спасибо за заявку | Raluma</title>
+  <meta name="robots" content="noindex,follow">
+  <link rel="canonical" href="https://raluma.com.ru/thanks.html">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/raluma-06.png">
+  <style>
+    body { margin: 0; font-family: "Montserrat", Arial, sans-serif; background: #f5f6f8; color: #0f172a; }
+    .thanks { min-height: 100vh; display: grid; place-items: center; padding: 24px; }
+    .thanks__card { max-width: 640px; width: 100%; background: #fff; border-radius: 20px; box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12); padding: 40px 32px; text-align: center; }
+    .thanks__title { margin: 0 0 12px; font-size: 36px; line-height: 1.2; }
+    .thanks__text { margin: 0 0 28px; font-size: 20px; line-height: 1.4; color: #334155; }
+    .thanks__btn { display: inline-block; border-radius: 999px; padding: 14px 28px; background: #fe0000; color: #fff; text-decoration: none; font-weight: 600; }
+    .thanks__btn:hover, .thanks__btn:focus-visible { background: #cb0000; }
+    @media (max-width: 640px) {
+      .thanks__card { padding: 28px 20px; }
+      .thanks__title { font-size: 28px; }
+      .thanks__text { font-size: 18px; }
+    }
+  </style>
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
+      (function(m,e,t,r,i,k,a){
+          m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+          m[i].l=1*new Date();
+          for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+          k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+      })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=108496902', 'ym');
+
+      ym(108496902, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/108496902" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+</head>
+<body>
+  <main class="thanks">
+    <section class="thanks__card" aria-labelledby="thanks-title">
+      <h1 id="thanks-title" class="thanks__title">Спасибо, заявка отправлена</h1>
+      <p class="thanks__text">Мы свяжемся с вами в ближайшее время</p>
+      <a class="thanks__btn" href="/">Вернуться на главную</a>
+    </section>
+  </main>
+  <script>
+    if (typeof window.ym === 'function') {
+      window.ym(108496902, 'reachGoal', 'lead_form_success_page');
+    }
+  </script>
+</body>
+</html>
