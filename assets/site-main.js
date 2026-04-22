@@ -450,6 +450,11 @@
     var centerCol = footer.querySelector('.t463__col_center');
     if (!centerCol) return;
 
+    var legacyMainphrase = centerCol.querySelector('.t463__mainphrase');
+    if (legacyMainphrase) {
+      legacyMainphrase.remove();
+    }
+
     var cityline = footer.querySelector('.raluma-footer__cityline');
     if (!cityline) {
       cityline = document.createElement('div');
