@@ -120,7 +120,7 @@
     var style = document.createElement('style');
     style.id = 'raluma-call-ux-style';
     style.textContent = [
-      ':root{--raluma-callbar-height:74px;--raluma-mobile-bar-height:76px;--bottom-bar-height:0px;--raluma-anchor-offset-mobile:18px;--raluma-anchor-offset-desktop:92px;--raluma-safe-area-bottom:env(safe-area-inset-bottom,0px);--raluma-floating-gap:20px;--raluma-floating-stack-gap:12px;--raluma-scrollup-size:50px;--raluma-bottom-layer-height:0px;--raluma-scroll-up-offset:calc(var(--raluma-bottom-layer-height) + var(--raluma-safe-area-bottom) + var(--raluma-floating-gap));--raluma-cookies-trigger-offset:calc(var(--raluma-scroll-up-offset) + var(--raluma-scrollup-size) + var(--raluma-floating-stack-gap));}',
+      ':root{--raluma-callbar-height:74px;--raluma-mobile-bar-height:76px;--bottom-bar-height:0px;--raluma-anchor-offset-mobile:18px;--raluma-anchor-offset-desktop:92px;--raluma-safe-area-bottom:env(safe-area-inset-bottom,0px);--raluma-floating-gap:20px;--raluma-floating-stack-gap:12px;--raluma-scrollup-size:50px;--raluma-bottom-layer-height:0px;--raluma-mobile-actions-bottom-offset:0px;--raluma-scroll-up-offset:calc(var(--raluma-bottom-layer-height) + var(--raluma-safe-area-bottom) + var(--raluma-floating-gap) + var(--raluma-mobile-actions-bottom-offset));--raluma-cookies-trigger-offset:calc(var(--raluma-scroll-up-offset) + var(--raluma-scrollup-size) + var(--raluma-floating-stack-gap));}',
       '.raluma-callbar{position:fixed;top:18px;right:20px;left:auto;z-index:990;background:#ffffff;border:1px solid rgba(11,24,43,0.16);box-shadow:0 10px 26px rgba(11,24,43,0.12);border-radius:16px;padding:12px 14px;min-width:320px;max-width:min(420px,calc(100vw - 40px));transition:border-color .24s ease,box-shadow .24s ease,transform .24s ease;}',
       '.raluma-callbar__inner{display:flex;flex-direction:column;gap:0;}',
       '.raluma-callbar__mainline{display:flex;align-items:center;justify-content:space-between;gap:14px;}',
@@ -148,7 +148,7 @@
       '#rec2145215921 .t890{left:20px;right:auto;bottom:var(--raluma-scroll-up-offset);z-index:1010;}',
       '@media screen and (min-width:981px){:root{--raluma-bottom-layer-height:0px;--raluma-floating-gap:20px;--raluma-floating-stack-gap:12px;}body{padding-top:0;} }',
       '@media screen and (max-width:1200px){:root{--raluma-floating-gap:18px;--raluma-floating-stack-gap:12px;}}',
-      '@media screen and (max-width:980px){:root{--raluma-bottom-layer-height:var(--bottom-bar-height,76px);--raluma-floating-gap:16px;--raluma-floating-stack-gap:14px;} .raluma-callbar{display:none!important;}.raluma-mobile-actions{display:flex;transition:opacity .24s ease,visibility .24s ease,transform .24s ease;}body{padding-bottom:calc(var(--raluma-mobile-bar-height) + var(--raluma-safe-area-bottom) + 22px);}section#lead-form{scroll-margin-top:var(--raluma-anchor-offset-mobile);}#cases-prices{scroll-margin-top:var(--raluma-anchor-offset-mobile);} }',
+      '@media screen and (max-width:980px){:root{--raluma-bottom-layer-height:var(--bottom-bar-height,76px);--raluma-floating-gap:16px;--raluma-floating-stack-gap:14px;--raluma-mobile-actions-bottom-offset:12px;} .raluma-callbar{display:none!important;}.raluma-mobile-actions{display:flex;transition:opacity .24s ease,visibility .24s ease,transform .24s ease;}body{padding-bottom:calc(var(--raluma-mobile-bar-height) + var(--raluma-safe-area-bottom) + 22px);}section#lead-form{scroll-margin-top:var(--raluma-anchor-offset-mobile);}#cases-prices{scroll-margin-top:var(--raluma-anchor-offset-mobile);} }',
       '@media screen and (max-width:1200px){.raluma-callbar{top:14px;right:14px;min-width:290px;}}',
       '@media screen and (max-width:640px){#rec2143512671 .t182__buttons{margin-top:28px;}}',
       '#rec2143512671 .t182__descr-line{display:block;}',
@@ -264,6 +264,10 @@
 
     update();
     window.addEventListener('resize', update);
+    window.addEventListener('orientationchange', update);
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', update);
+    }
   }
 
   function setupContextMobileBar(actionBar) {
