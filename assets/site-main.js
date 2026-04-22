@@ -58,6 +58,27 @@
     if (form.dataset.hardened === '1') return;
     form.dataset.hardened = '1';
 
+    var consentControl = ensureConsentControl(form);
+    var consentInput = consentControl ? consentControl.input : null;
+    var consentError = consentControl ? consentControl.error : null;
+
+    function setConsentError(message) {
+      if (!consentInput || !consentError) return;
+
+      var hasError = Boolean(message);
+      consentError.textContent = message || '';
+      consentInput.setAttribute('aria-invalid', hasError ? 'true' : 'false');
+      consentInput.closest('.raluma-consent').classList.toggle('is-error', hasError);
+    }
+
+    if (consentInput) {
+      consentInput.addEventListener('change', function () {
+        if (consentInput.checked) {
+          setConsentError('');
+        }
+      });
+    }
+
     form.addEventListener('submit', async function (event) {
       event.preventDefault();
 
@@ -83,12 +104,23 @@
         return;
       }
 
+      if (consentInput && !consentInput.checked) {
+        var consentMessage = 'Подтвердите согласие на обработку персональных данных, чтобы отправить форму.';
+        setConsentError(consentMessage);
+        setStatus(successBox, consentMessage, true);
+        consentInput.focus();
+        return;
+      }
+
+      setConsentError('');
+
       form.dataset.submitting = '1';
       setButtonBusy(button, true);
 
       var data = new FormData(form);
       data.set('name', name);
       data.set('phone', phone);
+      data.set('personal_data_consent', consentInput && consentInput.checked ? 'yes' : 'no');
       data.set('page_url', window.location.href);
       data.set('page_title', document.title);
 
@@ -112,6 +144,39 @@
         setButtonBusy(button, false);
       }
     });
+  }
+
+  function ensureConsentControl(form) {
+    if (!form) return null;
+
+    var existingInput = form.querySelector('input[name="personal_data_consent"]');
+    if (existingInput) {
+      return {
+        input: existingInput,
+        error: form.querySelector('#consent_error_' + form.id)
+      };
+    }
+
+    var submitWrap = form.querySelector('.t-form__submit');
+    if (!submitWrap || !form.id) return null;
+
+    var consentId = 'consent_' + form.id;
+    var consentErrorId = 'consent_error_' + form.id;
+    var consentWrap = document.createElement('div');
+    consentWrap.className = 'raluma-consent';
+    consentWrap.innerHTML =
+      '<label class="raluma-consent__label" for="' + consentId + '">' +
+      '<input class="raluma-consent__checkbox" type="checkbox" id="' + consentId + '" name="personal_data_consent" value="yes" required>' +
+      '<span class="raluma-consent__text">Я даю <a href="#popup:embedcode">согласие на обработку персональных данных</a> и подтверждаю ознакомление с <a href="#popup:privacy">политикой конфиденциальности</a>.</span>' +
+      '</label>' +
+      '<div class="raluma-consent__error" id="' + consentErrorId + '" aria-live="polite"></div>';
+
+    submitWrap.insertAdjacentElement('beforebegin', consentWrap);
+
+    return {
+      input: consentWrap.querySelector('.raluma-consent__checkbox'),
+      error: consentWrap.querySelector('.raluma-consent__error')
+    };
   }
 
   function injectCallUxStyles() {
@@ -177,8 +242,22 @@
       '@media screen and (max-width:980px){#rec2145460381 .t463__maincontainer{padding-top:18px;padding-bottom:16px;}#rec2145460381 .t463__colwrapper{display:flex;flex-direction:column;align-items:center;gap:10px;}#rec2145460381 .t463__col{width:100%;text-align:center!important;}#rec2145460381 .raluma-footer__cityline{order:1;text-align:center;font-size:14px;line-height:1.45;max-width:360px;}#rec2145460381 .t463__col:first-child{order:2;}#rec2145460381 .t463__logo{max-width:76px!important;height:auto;}#rec2145460381 .raluma-footer__copyright-row{order:3;}#rec2145460381 .t463__col:last-child{order:4;}#rec2145460381 .t-sociallinks__wrapper{justify-content:center;}}',
       '#rec2144564801 .t722__content{background:linear-gradient(168deg,rgba(255,255,255,0.97) 0%,rgba(246,248,252,0.96) 100%)!important;border:1px solid rgba(19,33,56,0.14)!important;border-radius:28px;padding:36px 38px!important;box-shadow:0 26px 56px rgba(10,18,34,0.24),inset 0 1px 0 rgba(255,255,255,0.72);}#rec2144564801 .t722__title{font-weight:600;line-height:1.16;letter-spacing:-0.012em;color:#101a2b!important;margin-bottom:16px;}#rec2144564801 .t722__descr{opacity:1!important;color:rgba(16,26,43,0.78)!important;line-height:1.42;}#rec2144564801 .t-input-title{font-size:14px!important;line-height:1.35!important;font-weight:560!important;color:#1a2b43!important;margin-bottom:8px!important;}#rec2144564801 .t-input{background:rgba(255,255,255,0.98)!important;border:1px solid rgba(23,39,63,0.2)!important;border-radius:14px!important;min-height:56px!important;padding:14px 16px!important;font-size:16px!important;line-height:1.25!important;color:#121f33!important;transition:border-color .22s ease,box-shadow .22s ease,background-color .22s ease;}#rec2144564801 .t-input:focus-visible,#rec2144564801 .t-input:focus{border-color:rgba(21,56,105,0.5)!important;box-shadow:0 0 0 4px rgba(38,98,184,0.12)!important;outline:none!important;background:#fff!important;}#rec2144564801 .t-input-group{margin-bottom:16px!important;}#rec2144564801 .t-input-error{margin-top:6px;font-size:12px;line-height:1.4;color:#b63f3f;}#rec2144564801 .t-submit.t-btnflex_type_submit{min-height:58px;border-radius:16px!important;background:linear-gradient(180deg,#111e33 0%,#0d1828 100%)!important;border:1px solid rgba(255,255,255,0.14)!important;box-shadow:0 16px 34px rgba(8,16,29,0.28)!important;color:#fff!important;font-size:15px!important;letter-spacing:.04em;}#rec2144564801 .t-submit.t-btnflex_type_submit:active{transform:translateY(1px);}#rec2144564801 .t722__hint,#rec2144564801 .t722__hint div{font-size:13px!important;line-height:1.5!important;color:rgba(239,245,255,0.84)!important;}#rec2144564801 .t722__hint a{color:#fff!important;text-decoration:underline;}@media (hover:hover){#rec2144564801 .t-submit.t-btnflex_type_submit:not(.t-animate_no-hover):hover,#rec2144564801 .t-submit.t-btnflex_type_submit:not(.t-animate_no-hover):focus-visible{background:linear-gradient(180deg,#182a45 0%,#101f34 100%)!important;color:#fff!important;border-color:rgba(255,255,255,0.34)!important;box-shadow:0 18px 38px rgba(8,16,29,0.32)!important;}}',
       '#rec2144564801 .js-successbox{border-radius:14px;background:rgba(13,26,45,0.08);padding:12px 14px;color:#1a2c46;font-size:14px;line-height:1.42;}',
+      '#rec2144564801 .raluma-consent{margin:10px 0 6px;padding:12px 14px;border-radius:14px;background:rgba(12,24,42,0.05);border:1px solid rgba(16,32,58,0.18);transition:border-color .2s ease,box-shadow .2s ease,background-color .2s ease;}',
+      '#rec2144564801 .raluma-consent__label{display:grid;grid-template-columns:20px 1fr;gap:12px;align-items:flex-start;cursor:pointer;}',
+      '#rec2144564801 .raluma-consent__checkbox{width:18px;height:18px;margin:1px 0 0;accent-color:#1a365f;cursor:pointer;}',
+      '#rec2144564801 .raluma-consent__checkbox:focus-visible{outline:2px solid rgba(25,81,158,0.58);outline-offset:2px;}',
+      '#rec2144564801 .raluma-consent__text{font-size:13px;line-height:1.45;color:#1a2c46;}',
+      '#rec2144564801 .raluma-consent__text a{color:#102f61;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:2px;transition:color .2s ease,text-decoration-color .2s ease;}',
+      '#rec2144564801 .raluma-consent__text a:hover,#rec2144564801 .raluma-consent__text a:active{color:#0a2246;text-decoration-color:#0a2246;}',
+      '#rec2144564801 .raluma-consent__text a:focus-visible{outline:2px solid rgba(25,81,158,0.4);outline-offset:2px;border-radius:2px;}',
+      '#rec2144564801 .raluma-consent__error{min-height:17px;margin:6px 0 0 32px;font-size:12px;line-height:1.4;color:#b00020;}',
+      '#rec2144564801 .raluma-consent.is-error{border-color:rgba(176,0,32,0.56);background:rgba(176,0,32,0.06);box-shadow:0 0 0 3px rgba(176,0,32,0.08);}',
+      '#rec2144564801 .t722__hint,#rec2144564801 .t722__hint div{font-size:13px!important;line-height:1.5!important;color:rgba(25,40,64,0.84)!important;}',
+      '#rec2144564801 .t722__hint a{color:#0f2f5f!important;text-decoration:underline;text-underline-offset:2px;text-decoration-thickness:1px;transition:color .2s ease,text-decoration-color .2s ease;}',
+      '#rec2144564801 .t722__hint a:hover,#rec2144564801 .t722__hint a:active{color:#0a2345!important;text-decoration-color:#0a2345;}',
+      '#rec2144564801 .t722__hint a:focus-visible{outline:2px solid rgba(25,81,158,0.38);outline-offset:2px;border-radius:2px;}',
       '@media screen and (max-width:980px){#rec2144564801 .t722__content{padding:28px 22px!important;border-radius:24px;}#rec2144564801 .t722__title{font-size:34px!important;}#rec2144564801 .t722__descr{font-size:18px!important;}#rec2144564801 .t722__hint{margin-top:16px!important;}}',
-      '@media screen and (max-width:767px){#rec2143512671 .t182__content-wrapper{max-width:344px;}#rec2143512671 .t182__title{font-size:38px;line-height:1.1;margin-bottom:14px;}#rec2143512671 .t182__descr{font-size:17px;line-height:1.42;max-width:320px;white-space:normal;text-wrap:balance;margin-left:auto;margin-right:auto;}#rec2143512671 .t182__descr br{display:none;}#rec2143512671 .t182__brand{display:none;}#rec2143512671 .t182__buttons{margin-top:16px;justify-content:center;}#rec2143512671 .t-btnflex_type_button{display:none!important;}#rec2143512671 .t182__wrapper{padding-top:36px;padding-bottom:calc(var(--bottom-bar-height) + env(safe-area-inset-bottom) + 34px);}#rec2144564801 .t722__content{padding:22px 16px!important;border-radius:20px;}#rec2144564801 .t722__title{font-size:28px!important;line-height:1.15;}#rec2144564801 .t722__descr{font-size:16px!important;}#rec2144564801 .t-input{min-height:54px!important;}#rec2144564801 .t722__hint,#rec2144564801 .t722__hint div{font-size:12px!important;}}'
+      '@media screen and (max-width:767px){#rec2143512671 .t182__content-wrapper{max-width:344px;}#rec2143512671 .t182__title{font-size:38px;line-height:1.1;margin-bottom:14px;}#rec2143512671 .t182__descr{font-size:17px;line-height:1.42;max-width:320px;white-space:normal;text-wrap:balance;margin-left:auto;margin-right:auto;}#rec2143512671 .t182__descr br{display:none;}#rec2143512671 .t182__brand{display:none;}#rec2143512671 .t182__buttons{margin-top:16px;justify-content:center;}#rec2143512671 .t-btnflex_type_button{display:none!important;}#rec2143512671 .t182__wrapper{padding-top:36px;padding-bottom:calc(var(--bottom-bar-height) + env(safe-area-inset-bottom) + 34px);}#rec2144564801 .t722__content{padding:22px 16px!important;border-radius:20px;}#rec2144564801 .t722__title{font-size:28px!important;line-height:1.15;}#rec2144564801 .t722__descr{font-size:16px!important;}#rec2144564801 .t-input{min-height:54px!important;}#rec2144564801 .raluma-consent{padding:11px 12px;}#rec2144564801 .raluma-consent__label{grid-template-columns:18px 1fr;gap:10px;}#rec2144564801 .raluma-consent__text,#rec2144564801 .t722__hint,#rec2144564801 .t722__hint div{font-size:12px!important;}#rec2144564801 .raluma-consent__error{margin-left:28px;}}'
     ].join('');
 
     document.head.appendChild(style);
