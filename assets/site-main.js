@@ -230,16 +230,25 @@
       '.raluma-cookie-widget__accept{border:none;border-radius:999px;background:#111;color:#fff;font-size:12px;font-weight:600;padding:8px 12px;cursor:pointer;}',
       '.raluma-cookie-widget__more{font-size:12px;font-weight:600;color:#111;text-decoration:underline;}',
       '@media (hover:hover){#rec2143512671 .t-btnflex.t-btnflex_type_button2:not(.t-animate_no-hover):hover,#rec2143512671 .t-btnflex.t-btnflex_type_button2:not(.t-animate_no-hover):focus-visible{color:#141f31!important;border-color:rgba(14,25,43,0.24)!important;background:linear-gradient(180deg,#ffffff 0%,#eef2f8 100%)!important;box-shadow:0 16px 34px rgba(10,18,34,0.26),inset 0 1px 0 rgba(255,255,255,0.95)!important;}}',
-      '#rec2145460381 .t463__maincontainer{padding-top:22px;padding-bottom:18px;}',
-      '#rec2145460381 .t463__content{display:flex;flex-direction:column;gap:14px;}',
-      '#rec2145460381 .t463__colwrapper{display:grid;grid-template-columns:minmax(120px,auto) minmax(260px,1fr) minmax(220px,auto);align-items:center;gap:16px;}',
+      '#rec2145460381 .t463__maincontainer{padding-top:24px;padding-bottom:18px;}',
+      '#rec2145460381 .t463__content{display:flex;flex-direction:column;gap:16px;}',
+      '#rec2145460381 .t463__colwrapper{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,640px) minmax(0,1fr);align-items:center;gap:16px;}',
       '#rec2145460381 .t463__col,#rec2145460381 .t463__col_center,#rec2145460381 .t463__col.t-align_right{text-align:center!important;}',
-      '#rec2145460381 .raluma-footer__cityline{color:#fff;font-size:15px;line-height:1.45;font-weight:500;text-align:center;max-width:640px;margin:0 auto;overflow-wrap:anywhere;}',
+      '#rec2145460381 .t463__col:first-child{justify-self:start;}',
+      '#rec2145460381 .t463__col:last-child{justify-self:end;}',
+      '#rec2145460381 .raluma-footer__cityline{color:#fff;font-size:15px;line-height:1.45;font-weight:500;text-align:center;max-width:640px;margin:0 auto;overflow-wrap:anywhere;text-wrap:balance;}',
       '#rec2145460381 .raluma-footer__cityline-break{display:inline;}',
-      '#rec2145460381 .raluma-footer__copyright-row{display:flex;justify-content:center;}',
+      '#rec2145460381 .raluma-footer__copyright-row{display:flex;justify-content:center;padding-top:2px;}',
       '#rec2145460381 .raluma-footer__copyright-row .t463__copyright{margin:0;text-align:center;}',
-      '#rec2145460381 .t-sociallinks__wrapper{justify-content:center;}',
-      '@media screen and (max-width:980px){#rec2145460381 .t463__maincontainer{padding-top:18px;padding-bottom:16px;}#rec2145460381 .t463__colwrapper{display:flex;flex-direction:column;align-items:center;gap:10px;}#rec2145460381 .t463__col{width:100%;text-align:center!important;}#rec2145460381 .raluma-footer__cityline{order:1;text-align:center;font-size:14px;line-height:1.45;max-width:360px;}#rec2145460381 .t463__col:first-child{order:2;}#rec2145460381 .t463__logo{max-width:76px!important;height:auto;}#rec2145460381 .raluma-footer__copyright-row{order:3;}#rec2145460381 .t463__col:last-child{order:4;}#rec2145460381 .t-sociallinks__wrapper{justify-content:center;}}',
+      '#rec2145460381 .t-sociallinks{display:flex;justify-content:flex-end;}',
+      '#rec2145460381 .t-sociallinks__wrapper{display:flex;align-items:center;justify-content:flex-end;flex-wrap:nowrap;gap:10px;padding:0;margin:0;list-style:none;}',
+      '#rec2145460381 .t-sociallinks__item{margin:0!important;line-height:0;}',
+      '#rec2145460381 .t-sociallinks__item a{display:inline-flex;align-items:center;justify-content:center;width:34px!important;height:34px!important;border-radius:50%;transition:transform .2s ease,opacity .2s ease;}',
+      '#rec2145460381 .t-sociallinks__item a .t-sociallinks__svg{width:34px;height:34px;display:block;}',
+      '@media (hover:hover){#rec2145460381 .t-sociallinks__item a:hover,#rec2145460381 .t-sociallinks__item a:focus-visible{transform:translateY(-1px);opacity:.9;}}',
+      '#rec2145460381 .t-sociallinks__item a:focus-visible{outline:2px solid rgba(255,255,255,.8);outline-offset:2px;}',
+      '#rec2145460381 .t-sociallinks__item a:active{transform:translateY(0);opacity:.75;}',
+      '@media screen and (max-width:980px){#rec2145460381 .t463__maincontainer{padding-top:18px;padding-bottom:16px;}#rec2145460381 .t463__colwrapper{display:flex;flex-direction:column;align-items:center;gap:12px;}#rec2145460381 .t463__col{width:100%;text-align:center!important;justify-self:center;}#rec2145460381 .t463__col:first-child{order:1;}#rec2145460381 .raluma-footer__cityline{order:2;text-align:center;font-size:14px;line-height:1.45;max-width:360px;}#rec2145460381 .t463__col:last-child{order:3;}#rec2145460381 .raluma-footer__copyright-row{order:4;padding-top:0;}#rec2145460381 .t463__logo{max-width:76px!important;height:auto;}#rec2145460381 .t-sociallinks{justify-content:center;}#rec2145460381 .t-sociallinks__wrapper{justify-content:center;}}',
       '#rec2144564801 .t722__content{background:linear-gradient(168deg,rgba(255,255,255,0.97) 0%,rgba(246,248,252,0.96) 100%)!important;border:1px solid rgba(19,33,56,0.14)!important;border-radius:28px;padding:36px 38px!important;box-shadow:0 26px 56px rgba(10,18,34,0.24),inset 0 1px 0 rgba(255,255,255,0.72);}#rec2144564801 .t722__title{font-weight:600;line-height:1.16;letter-spacing:-0.012em;color:#101a2b!important;margin-bottom:16px;}#rec2144564801 .t722__descr{opacity:1!important;color:rgba(16,26,43,0.78)!important;line-height:1.42;}#rec2144564801 .t-input-title{font-size:14px!important;line-height:1.35!important;font-weight:560!important;color:#1a2b43!important;margin-bottom:8px!important;}#rec2144564801 .t-input{background:rgba(255,255,255,0.98)!important;border:1px solid rgba(23,39,63,0.2)!important;border-radius:14px!important;min-height:56px!important;padding:14px 16px!important;font-size:16px!important;line-height:1.25!important;color:#121f33!important;transition:border-color .22s ease,box-shadow .22s ease,background-color .22s ease;}#rec2144564801 .t-input:focus-visible,#rec2144564801 .t-input:focus{border-color:rgba(21,56,105,0.5)!important;box-shadow:0 0 0 4px rgba(38,98,184,0.12)!important;outline:none!important;background:#fff!important;}#rec2144564801 .t-input-group{margin-bottom:16px!important;}#rec2144564801 .t-input-error{margin-top:6px;font-size:12px;line-height:1.4;color:#b63f3f;}#rec2144564801 .t-submit.t-btnflex_type_submit{min-height:58px;border-radius:16px!important;background:linear-gradient(180deg,#111e33 0%,#0d1828 100%)!important;border:1px solid rgba(255,255,255,0.14)!important;box-shadow:0 16px 34px rgba(8,16,29,0.28)!important;color:#fff!important;font-size:15px!important;letter-spacing:.04em;}#rec2144564801 .t-submit.t-btnflex_type_submit:active{transform:translateY(1px);}#rec2144564801 .t722__hint,#rec2144564801 .t722__hint div{font-size:13px!important;line-height:1.5!important;color:rgba(239,245,255,0.84)!important;}#rec2144564801 .t722__hint a{color:#fff!important;text-decoration:underline;}@media (hover:hover){#rec2144564801 .t-submit.t-btnflex_type_submit:not(.t-animate_no-hover):hover,#rec2144564801 .t-submit.t-btnflex_type_submit:not(.t-animate_no-hover):focus-visible{background:linear-gradient(180deg,#182a45 0%,#101f34 100%)!important;color:#fff!important;border-color:rgba(255,255,255,0.34)!important;box-shadow:0 18px 38px rgba(8,16,29,0.32)!important;}}',
       '#rec2144564801 .js-successbox{border-radius:14px;background:rgba(13,26,45,0.08);padding:12px 14px;color:#1a2c46;font-size:14px;line-height:1.42;}',
       '#rec2144564801 .raluma-consent{margin:10px 0 6px;padding:12px 14px;border-radius:14px;background:rgba(12,24,42,0.05);border:1px solid rgba(16,32,58,0.18);transition:border-color .2s ease,box-shadow .2s ease,background-color .2s ease;}',
@@ -450,6 +459,15 @@
       cityline.className = 'raluma-footer__cityline';
       cityline.textContent = 'Raluma безрамное остекление террас, веранд и беседок в Санкт-Петербурге и ЛО';
       centerCol.appendChild(cityline);
+    }
+
+    var socials = footer.querySelector('.t-sociallinks__wrapper');
+    if (socials) {
+      Array.prototype.slice.call(socials.childNodes).forEach(function (node) {
+        if (node.nodeType === Node.TEXT_NODE) {
+          node.remove();
+        }
+      });
     }
 
     var copyrightRow = footer.querySelector('.raluma-footer__copyright-row');
