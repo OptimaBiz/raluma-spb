@@ -494,6 +494,150 @@
     });
   }
 
+  function setupPopupController() {
+    var popupSelectors = ['#popup:privacy', '#popup:embedcode'];
+    var popupMap = new Map();
+    var activePopup = null;
+    var lastTrigger = null;
+
+    function getPopupKey(value) {
+      if (!value) return '';
+      var match = String(value).match(/^#popup:(privacy|embedcode)$/);
+      return match ? match[1] : '';
+    }
+
+    function collectPopups() {
+      popupSelectors.forEach(function (selector) {
+        var popup = document.querySelector('[data-tooltip-hook="' + selector + '"]');
+        if (popup) {
+          popupMap.set(selector, popup);
+        }
+      });
+    }
+
+    function setBodyLock(isLocked) {
+      document.body.style.overflow = isLocked ? 'hidden' : '';
+    }
+
+    function syncPopupContent(popup, isOpening) {
+      var codeWrap = popup.querySelector('.t868__code-wrap');
+      if (!codeWrap) return;
+
+      if (!codeWrap.dataset.ralumaOriginalDisplay) {
+        codeWrap.dataset.ralumaOriginalDisplay = codeWrap.style.display || '';
+      }
+
+      codeWrap.style.display = isOpening ? 'block' : (codeWrap.dataset.ralumaOriginalDisplay || 'none');
+    }
+
+    function openPopup(popup, trigger) {
+      if (!popup) return;
+
+      if (activePopup && activePopup !== popup) {
+        closePopup(activePopup, false);
+      }
+
+      if (!popup.dataset.ralumaOriginalDisplay) {
+        popup.dataset.ralumaOriginalDisplay = popup.style.display || '';
+      }
+
+      popup.style.display = 'block';
+      popup.classList.add('t-popup_show');
+      popup.classList.add('raluma-popup-open');
+      popup.style.opacity = '1';
+      popup.style.visibility = 'visible';
+      popup.style.pointerEvents = 'auto';
+      popup.style.zIndex = '999999';
+      popup.setAttribute('aria-hidden', 'false');
+      syncPopupContent(popup, true);
+
+      activePopup = popup;
+      lastTrigger = trigger || null;
+      setBodyLock(true);
+
+      var focusTarget = popup.querySelector('.t-popup__close-wrapper, .t-popup__block-close-button, .t-popup__container');
+      if (focusTarget && typeof focusTarget.focus === 'function') {
+        focusTarget.focus({ preventScroll: true });
+      }
+    }
+
+    function closePopup(popup, restoreFocus) {
+      if (!popup) return;
+
+      popup.classList.remove('raluma-popup-open');
+      popup.classList.remove('t-popup_show');
+      popup.style.opacity = '';
+      popup.style.visibility = '';
+      popup.style.pointerEvents = '';
+      popup.style.zIndex = '';
+      popup.style.display = popup.dataset.ralumaOriginalDisplay || 'none';
+      popup.setAttribute('aria-hidden', 'true');
+      syncPopupContent(popup, false);
+
+      if (activePopup === popup) {
+        activePopup = null;
+      }
+
+      if (!document.querySelector('.raluma-popup-open')) {
+        setBodyLock(false);
+      }
+
+      if (restoreFocus && lastTrigger && typeof lastTrigger.focus === 'function') {
+        lastTrigger.focus({ preventScroll: true });
+      }
+    }
+
+    function openPopupFromValue(value, trigger) {
+      var key = getPopupKey(value);
+      if (!key) return false;
+
+      var popup = popupMap.get('#popup:' + key);
+      if (!popup) return false;
+
+      openPopup(popup, trigger);
+      return true;
+    }
+
+    function closeActivePopup(restoreFocus) {
+      closePopup(activePopup, restoreFocus);
+    }
+
+    collectPopups();
+
+    document.addEventListener('click', function (event) {
+      var trigger = event.target.closest('[href="#popup:privacy"], [href="#popup:embedcode"], [data-popup-target="#popup:privacy"], [data-popup-target="#popup:embedcode"]');
+      if (!trigger) return;
+
+      var targetValue = trigger.getAttribute('data-popup-target') || trigger.getAttribute('href');
+      if (!openPopupFromValue(targetValue, trigger)) return;
+
+      event.preventDefault();
+      event.stopPropagation();
+    });
+
+    popupSelectors.forEach(function (selector) {
+      var popup = popupMap.get(selector);
+      if (!popup) return;
+
+      popup.addEventListener('click', function (event) {
+        if (event.target.closest('.t-popup__close, .t-popup__block-close, .t-popup__block-close-button')) {
+          event.preventDefault();
+          closePopup(popup, true);
+          return;
+        }
+
+        if (event.target === popup) {
+          closePopup(popup, true);
+        }
+      });
+    });
+
+    document.addEventListener('keydown', function (event) {
+      if (event.key !== 'Escape' || !activePopup) return;
+      closeActivePopup(true);
+    });
+  }
+
   function setupCompactCookieConsent() {
     var storageKey = 'cookiesAccepted';
     try {
@@ -512,7 +656,7 @@
       '  <p class="raluma-cookie-widget__text">Используем cookies для корректной работы и улучшения сервиса.</p>' +
       '  <div class="raluma-cookie-widget__actions">' +
       '    <button type="button" class="raluma-cookie-widget__accept">Принять</button>' +
-      '    <a href="#popup:privacy" class="raluma-cookie-widget__more">Подробнее</a>' +
+      '    <a href="#popup:privacy" data-popup-target="#popup:privacy" class="raluma-cookie-widget__more">Подробнее</a>' +
       '  </div>' +
       '</div>';
 
@@ -581,6 +725,7 @@
     enhanceFooterLayout();
     insertDesktopStickyCallbar();
     setupCallbarStateListener();
+    setupPopupController();
     var mobileBar = insertMobileActionBar();
     syncMobileOffsets(mobileBar);
     setupContextMobileBar(mobileBar);
