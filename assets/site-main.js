@@ -542,7 +542,12 @@
       }
 
       popup.style.display = 'block';
+      popup.classList.add('t-popup_show');
       popup.classList.add('raluma-popup-open');
+      popup.style.opacity = '1';
+      popup.style.visibility = 'visible';
+      popup.style.pointerEvents = 'auto';
+      popup.style.zIndex = '999999';
       popup.setAttribute('aria-hidden', 'false');
       syncPopupContent(popup, true);
 
@@ -560,6 +565,11 @@
       if (!popup) return;
 
       popup.classList.remove('raluma-popup-open');
+      popup.classList.remove('t-popup_show');
+      popup.style.opacity = '';
+      popup.style.visibility = '';
+      popup.style.pointerEvents = '';
+      popup.style.zIndex = '';
       popup.style.display = popup.dataset.ralumaOriginalDisplay || 'none';
       popup.setAttribute('aria-hidden', 'true');
       syncPopupContent(popup, false);
