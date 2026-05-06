@@ -31,6 +31,7 @@ test('landing smoke flow: hero, validation, submit and thanks', async ({ page })
 
   await form.locator('input[name="name"]').fill('Иван');
   await form.locator('input[name="phone"]').fill('+79991234567');
+  await form.locator('input[name="personal_data_consent"]').check();
   await submitButton.click();
 
   await expect(page).toHaveURL(/\/thanks\.html$/);
