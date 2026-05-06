@@ -45,6 +45,7 @@ for (const viewport of viewports) {
     await expect(page.locator('#rec2143512671')).toBeVisible();
     await expect(page.getByRole('heading', { level: 1 })).toContainText('Терраса круглый год');
 
+    const form = page.locator('form.lead-form').first();
     const callbar = page.locator('.raluma-callbar');
     const mobileActions = page.locator('.raluma-mobile-actions');
     const hero = page.locator('#rec2143512671');
@@ -74,5 +75,30 @@ for (const viewport of viewports) {
     } else {
       await expect(heroSecondaryButton).toBeHidden();
     }
+
+    await page.evaluate(() => window.scrollTo(0, 120));
+
+    const cookieWidget = page.locator('.raluma-cookie-widget');
+    await expect(cookieWidget).toHaveClass(/is-visible/);
+    await cookieWidget.getByRole('button', { name: 'Настройки cookies' }).click();
+    await expect(cookieWidget).toHaveClass(/is-open/);
+
+    const privacyPopup = page.locator('[data-tooltip-hook="#popup:privacy"]');
+    const embedPopup = page.locator('[data-tooltip-hook="#popup:embedcode"]');
+
+    await cookieWidget.getByRole('link', { name: 'Подробнее' }).click();
+    await expect(privacyPopup).toBeVisible();
+    await privacyPopup.locator('.t-popup__close-wrapper').click();
+    await expect(privacyPopup).toBeHidden();
+
+    await form.locator('a[href="#popup:embedcode"]').click();
+    await expect(embedPopup).toBeVisible();
+    await page.keyboard.press('Escape');
+    await expect(embedPopup).toBeHidden();
+
+    await form.locator('a[href="#popup:privacy"]').click();
+    await expect(privacyPopup).toBeVisible();
+    await page.mouse.click(8, 8);
+    await expect(privacyPopup).toBeHidden();
   });
 }
