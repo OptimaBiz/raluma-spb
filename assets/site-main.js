@@ -495,14 +495,14 @@
   }
 
   function setupPopupController() {
-    var popupSelectors = ['#popup:privacy', '#popup:embedcode'];
+    var popupSelectors = ['#popup:privacy', '#popup:embedcode', '#popup:cookies'];
     var popupMap = new Map();
     var activePopup = null;
     var lastTrigger = null;
 
     function getPopupKey(value) {
       if (!value) return '';
-      var match = String(value).match(/^#popup:(privacy|embedcode)$/);
+      var match = String(value).match(/^#popup:(privacy|embedcode|cookies)$/);
       return match ? match[1] : '';
     }
 
@@ -605,7 +605,7 @@
     collectPopups();
 
     document.addEventListener('click', function (event) {
-      var trigger = event.target.closest('[href="#popup:privacy"], [href="#popup:embedcode"], [data-popup-target="#popup:privacy"], [data-popup-target="#popup:embedcode"]');
+      var trigger = event.target.closest('[href="#popup:privacy"], [href="#popup:embedcode"], [href="#popup:cookies"], [data-popup-target="#popup:privacy"], [data-popup-target="#popup:embedcode"], [data-popup-target="#popup:cookies"]');
       if (!trigger) return;
 
       var targetValue = trigger.getAttribute('data-popup-target') || trigger.getAttribute('href');
@@ -656,7 +656,7 @@
       '  <p class="raluma-cookie-widget__text">Используем cookies для корректной работы и улучшения сервиса.</p>' +
       '  <div class="raluma-cookie-widget__actions">' +
       '    <button type="button" class="raluma-cookie-widget__accept">Принять</button>' +
-      '    <a href="#popup:privacy" data-popup-target="#popup:privacy" class="raluma-cookie-widget__more">Подробнее</a>' +
+      '    <a href="#popup:cookies" data-popup-target="#popup:cookies" class="raluma-cookie-widget__more">Подробнее</a>' +
       '  </div>' +
       '</div>';
 

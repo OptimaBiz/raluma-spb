@@ -84,12 +84,14 @@ for (const viewport of viewports) {
     await expect(cookieWidget).toHaveClass(/is-open/);
 
     const privacyPopup = page.locator('[data-tooltip-hook="#popup:privacy"]');
+    const cookiesPopup = page.locator('[data-tooltip-hook="#popup:cookies"]');
     const embedPopup = page.locator('[data-tooltip-hook="#popup:embedcode"]');
 
     await cookieWidget.getByRole('link', { name: 'Подробнее' }).click();
-    await expect(privacyPopup).toBeVisible();
-    await privacyPopup.locator('.t-popup__close-wrapper').click();
-    await expect(privacyPopup).toBeHidden();
+    await expect(cookiesPopup).toBeVisible();
+    await expect(cookiesPopup.getByRole('heading', { level: 2 })).toContainText('Использование cookies');
+    await cookiesPopup.locator('.t-popup__close-wrapper').click();
+    await expect(cookiesPopup).toBeHidden();
 
     await form.locator('a[href="#popup:embedcode"]').click();
     await expect(embedPopup).toBeVisible();
