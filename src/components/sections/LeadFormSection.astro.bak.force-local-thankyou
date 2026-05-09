@@ -17,7 +17,7 @@ import '../../styles/sections/lead-form.css';
         назовём стоимость
       </p>
 
-      <form class="lead-form__form" id="lead-form-element" action="https://formspree.io/f/mjgpywnr" method="post" novalidate onsubmit="return false;">
+      <form class="lead-form__form" action="https://formspree.io/f/mjgpywnr" method="post">
         <input type="hidden" name="_subject" value="Raluma SPB — новая заявка" />
 
         <label class="lead-form__field">
@@ -230,9 +230,6 @@ import '../../styles/sections/lead-form.css';
   </dialog>
 
   <script is:inline>
-    const form = document.getElementById('lead-form-element');
-    const thankYouUrl = '/thank-you/';
-    const formspreeEndpoint = 'https://formspree.io/f/mjgpywnr';
     const checkbox = document.getElementById('lead-consent-checkbox');
     const submitButton = document.getElementById('lead-submit-button');
     const nameInput = document.getElementById('lead-name-input');
@@ -261,42 +258,6 @@ import '../../styles/sections/lead-form.css';
     checkbox?.addEventListener('change', syncSubmitState);
     nameInput?.addEventListener('input', syncSubmitState);
     phoneInput?.addEventListener('input', syncSubmitState);
-
-    form?.addEventListener('submit', async (event) => {
-      event.preventDefault();
-      event.stopImmediatePropagation();
-
-      if (!form || !submitButton) return;
-
-      const ready =
-        Boolean(checkbox && checkbox.checked) &&
-        hasValue(nameInput) &&
-        phoneLooksValid(phoneInput);
-
-      if (!ready) return;
-
-      submitButton.disabled = true;
-      submitButton.textContent = 'Отправляем...';
-
-      try {
-        await fetch(formspreeEndpoint, {
-          method: 'POST',
-          body: new FormData(form),
-          headers: { Accept: 'application/json' }
-        });
-      } catch (_) {}
-
-      window.location.replace(thankYouUrl);
-      return false;
-    }, true);
-
-    submitButton?.addEventListener('click', (event) => {
-      event.preventDefault();
-      event.stopImmediatePropagation();
-      form?.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
-      return false;
-    }, true);
-
 
     const dialogs = Array.from(document.querySelectorAll('.lead-form__dialog'));
 

@@ -392,7 +392,7 @@
 </p> </div> </details> </div> </div> </section> <section class="lead-form" id="lead-form"> <div class="lead-form__bg" aria-hidden="true"></div> <div class="lead-form__overlay" aria-hidden="true"></div> <div class="container lead-form__container"> <div class="lead-form__card"> <p class="lead-form__eyebrow">Форма для связи</p> <h2 class="lead-form__title">Получите расчёт под ваш объект</h2> <p class="lead-form__text">
 Оставьте контакты — свяжемся в течение рабочего дня, подберём систему и
         назовём стоимость
-</p> <form class="lead-form__form" action="https://formspree.io/f/mjgpywnr" method="post"> <input type="hidden" name="_subject" value="Raluma SPB — новая заявка"> <label class="lead-form__field"> <span class="lead-form__label">Имя</span> <input class="lead-form__input" id="lead-name-input" type="text" name="name" placeholder="ваше имя" autocomplete="name"> </label> <label class="lead-form__field"> <span class="lead-form__label">Телефон</span> <input class="lead-form__input" id="lead-phone-input" type="tel" name="phone" placeholder="+7 999 123-45-67" autocomplete="tel"> <span class="lead-form__hint">Укажите не менее 7 цифр в любом формате</span> </label> <div class="lead-form__consent-box"> <div class="lead-form__consent-row"> <input class="lead-form__checkbox" type="checkbox" id="lead-consent-checkbox" name="consent"> <label class="lead-form__checkbox-ui" for="lead-consent-checkbox" aria-label="Согласие"></label> <p class="lead-form__consent-text">
+</p> <form class="lead-form__form" id="lead-form-element" action="https://formspree.io/f/mjgpywnr" method="post" novalidate onsubmit="return false;"> <input type="hidden" name="_subject" value="Raluma SPB — новая заявка"> <label class="lead-form__field"> <span class="lead-form__label">Имя</span> <input class="lead-form__input" id="lead-name-input" type="text" name="name" placeholder="ваше имя" autocomplete="name"> </label> <label class="lead-form__field"> <span class="lead-form__label">Телефон</span> <input class="lead-form__input" id="lead-phone-input" type="tel" name="phone" placeholder="+7 999 123-45-67" autocomplete="tel"> <span class="lead-form__hint">Укажите не менее 7 цифр в любом формате</span> </label> <div class="lead-form__consent-box"> <div class="lead-form__consent-row"> <input class="lead-form__checkbox" type="checkbox" id="lead-consent-checkbox" name="consent"> <label class="lead-form__checkbox-ui" for="lead-consent-checkbox" aria-label="Согласие"></label> <p class="lead-form__consent-text">
 Я даю
 <button class="lead-form__inline-link" type="button" data-dialog-open="consent-dialog">
 согласие на обработку персональных данных
@@ -500,6 +500,9 @@
 Отправляя данные через формы на сайте, пользователь подтверждает своё согласие с настоящей Политикой конфиденциальности.
 
 Оператор вправе вносить изменения в настоящую Политику без согласия пользователя. Актуальная версия всегда доступна на данной странице.</pre> </div> </div> </dialog> <script>
+    const form = document.getElementById('lead-form-element');
+    const thankYouUrl = '/thank-you/';
+    const formspreeEndpoint = 'https://formspree.io/f/mjgpywnr';
     const checkbox = document.getElementById('lead-consent-checkbox');
     const submitButton = document.getElementById('lead-submit-button');
     const nameInput = document.getElementById('lead-name-input');
@@ -528,6 +531,42 @@
     checkbox?.addEventListener('change', syncSubmitState);
     nameInput?.addEventListener('input', syncSubmitState);
     phoneInput?.addEventListener('input', syncSubmitState);
+
+    form?.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+
+      if (!form || !submitButton) return;
+
+      const ready =
+        Boolean(checkbox && checkbox.checked) &&
+        hasValue(nameInput) &&
+        phoneLooksValid(phoneInput);
+
+      if (!ready) return;
+
+      submitButton.disabled = true;
+      submitButton.textContent = 'Отправляем...';
+
+      try {
+        await fetch(formspreeEndpoint, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' }
+        });
+      } catch (_) {}
+
+      window.location.replace(thankYouUrl);
+      return false;
+    }, true);
+
+    submitButton?.addEventListener('click', (event) => {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      form?.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
+      return false;
+    }, true);
+
 
     const dialogs = Array.from(document.querySelectorAll('.lead-form__dialog'));
 
