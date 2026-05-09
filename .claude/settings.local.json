@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run *)",
+      "Bash(curl -s http://localhost:4321/)",
+      "mcp__playwright__browser_navigate",
+      "Bash(npx playwright *)",
+      "Bash(pkill -f \"astro dev\")"
+    ]
+  },
+  "enabledMcpjsonServers": [
+    "playwright"
+  ]
+}

@@ -1,0 +1,145 @@
+.selection-cta {
+  padding: 8px 0 80px;
+}
+
+.selection-cta__box {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(280px, 420px);
+  gap: 24px;
+  align-items: center;
+  padding: 34px;
+  border: 1px solid rgba(17, 17, 17, 0.08);
+  border-radius: 28px;
+  background:
+    radial-gradient(circle at top right, rgba(229, 57, 53, 0.08), transparent 30%),
+    linear-gradient(180deg, #ffffff 0%, #fbfbfb 100%);
+  box-shadow: 0 18px 40px rgba(17, 17, 17, 0.05);
+}
+
+.selection-cta__eyebrow {
+  margin: 0 0 12px;
+  color: #e53935;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.selection-cta__title {
+  margin: 0;
+  font-size: clamp(28px, 4vw, 44px);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: #111111;
+  max-width: 760px;
+}
+
+.selection-cta__text {
+  margin: 18px 0 0;
+  max-width: 700px;
+  font-size: 17px;
+  line-height: 1.65;
+  color: #616875;
+}
+
+.selection-cta__badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.selection-cta__badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 0 14px;
+  border: 1px solid rgba(17, 17, 17, 0.08);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.9);
+  color: #222222;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.selection-cta__actions {
+  display: grid;
+  gap: 12px;
+}
+
+.selection-cta__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 56px;
+  padding: 0 24px;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.selection-cta__button:hover {
+  transform: translateY(-1px);
+}
+
+.selection-cta__button--primary {
+  background: #e53935;
+  color: #ffffff;
+  box-shadow: 0 14px 30px rgba(229, 57, 53, 0.22);
+}
+
+.selection-cta__button--primary:hover {
+  background: #d7322e;
+}
+
+.selection-cta__button--secondary {
+  border: 1px solid rgba(17, 17, 17, 0.12);
+  background: #ffffff;
+  color: #111111;
+}
+
+.selection-cta__button--secondary:hover {
+  background: #f5f5f5;
+}
+
+@media (max-width: 980px) {
+  .selection-cta__box {
+    grid-template-columns: 1fr;
+  }
+
+  .selection-cta__actions {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .selection-cta {
+    padding: 0 0 56px;
+  }
+
+  .selection-cta__box {
+    gap: 18px;
+    padding: 22px;
+    border-radius: 20px;
+  }
+
+  .selection-cta__text {
+    font-size: 16px;
+    line-height: 1.55;
+  }
+
+  .selection-cta__actions {
+    grid-template-columns: 1fr;
+  }
+
+  .selection-cta__button {
+    width: 100%;
+  }
+}
